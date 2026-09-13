@@ -3,6 +3,8 @@ import { PrimaryButtonPerimeter } from '@/components/primary-button-perimeter';
 
 type CinematicExperienceProps = {
   onDiscover: () => void;
+  onSoundChoice: (soundEnabled: boolean) => void;
+  onMusicStageChange: (stage: 'bridge' | 'discover') => void;
 };
 
 type CinematicStage =
@@ -28,7 +30,7 @@ const BRIDGE_PHASES = [
 
 type BridgePhaseId = (typeof BRIDGE_PHASES)[number]['id'];
 
-function BrandIntroScreen({ onDiscover }: CinematicExperienceProps) {
+function BrandIntroScreen({ onDiscover }: { onDiscover: () => void }) {
   return (
     <section className="brand-intro-screen" aria-label="Lead Clickz introduction">
       <div className="brand-intro-screen__content">
@@ -221,6 +223,8 @@ function SignalBridgeStage({ onComplete }: { onComplete: () => void }) {
 
 export function CinematicExperience({
   onDiscover,
+  onSoundChoice,
+  onMusicStageChange,
 }: CinematicExperienceProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stage, setStage] = useState<CinematicStage>('choice');
@@ -237,6 +241,7 @@ export function CinematicExperience({
     video.currentTime = 0;
     video.muted = muted;
     video.volume = 1;
+    onSoundChoice(!muted);
     setCinematicMuted(muted);
     setStage('cinematic');
 
@@ -256,18 +261,20 @@ export function CinematicExperience({
     }
 
     const holdTimer = window.setTimeout(() => {
+      onMusicStageChange('bridge');
       setStage('bridge');
     }, CINEMATIC_FINAL_HOLD_MS);
 
     return () => {
       window.clearTimeout(holdTimer);
     };
-  }, [stage]);
+  }, [onMusicStageChange, stage]);
 
   if (stage === 'bridge') {
     return (
       <SignalBridgeStage
         onComplete={() => {
+          onMusicStageChange('discover');
           setStage('intro');
         }}
       />
