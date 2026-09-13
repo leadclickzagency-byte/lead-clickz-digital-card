@@ -3,6 +3,28 @@
   "framework": "vite",
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/contacts/thomas-lopez.vcf",
+      "headers": [
+        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"thomas-lopez.vcf\""
+        }
+      ]
+    },
+    {
+      "source": "/contacts/tiffany-lopez.vcf",
+      "headers": [
+        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"tiffany-lopez.vcf\""
+        }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/((?!.*\\..*).*)", "destination": "/index.html" }
   ]

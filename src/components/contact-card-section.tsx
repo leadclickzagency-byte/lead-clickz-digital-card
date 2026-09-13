@@ -19,6 +19,17 @@ function phoneHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`;
 }
 
+function downloadVCard(vcfPath: string) {
+  const downloadLink = document.createElement('a');
+  downloadLink.href = vcfPath;
+  downloadLink.download = vcfPath.split('/').pop() ?? 'contact.vcf';
+  downloadLink.type = 'text/vcard';
+  downloadLink.hidden = true;
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  window.setTimeout(() => downloadLink.remove(), 0);
+}
+
 async function copyCurrentUrl(url: string) {
   if (navigator.clipboard) {
     await navigator.clipboard.writeText(url);
@@ -121,7 +132,10 @@ export function ContactCardSection({
                 href={profile.vcfPath}
                 download
                 type="text/vcard"
-                onClick={() => {
+                onClick={(event) => {
+                  event.preventDefault();
+                  downloadVCard(profile.vcfPath!);
+
                   if (onSaveContact) {
                     window.setTimeout(onSaveContact, 180);
                   }
