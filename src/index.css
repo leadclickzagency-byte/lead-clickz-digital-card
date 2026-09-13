@@ -92,11 +92,15 @@
   }
 
   html {
+    width: 100%;
     min-height: 100%;
+    background: var(--lc-white);
     text-size-adjust: 100%;
   }
 
   body {
+    width: 100%;
+    min-height: 100vh;
     min-height: 100svh;
     min-height: 100dvh;
     margin: 0;
@@ -126,8 +130,14 @@
 }
 
 #root {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   min-height: 100svh;
   min-height: 100dvh;
+  overflow-x: clip;
+  background: var(--lc-white);
+  isolation: isolate;
 }
 
 .activation-screen {
@@ -257,6 +267,9 @@
 
 .profile-experience {
   position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
   min-height: 100dvh;
   overflow: hidden;
   background: rgb(var(--lc-blue-rgb) / 2%);
@@ -297,6 +310,8 @@
 
 .profile-experience__stage,
 .profile-experience__card {
+  min-height: 100vh;
+  min-height: 100svh;
   min-height: 100dvh;
 }
 
@@ -322,6 +337,8 @@
 .connection-ignition-screen {
   position: relative;
   display: grid;
+  width: 100%;
+  min-height: 100vh;
   min-height: 100svh;
   min-height: 100dvh;
   place-items: center;
@@ -330,6 +347,12 @@
     max(1.5rem, env(safe-area-inset-right))
     max(1.5rem, env(safe-area-inset-bottom))
     max(1.5rem, env(safe-area-inset-left));
+}
+
+.profile-experience video,
+.profile-experience canvas,
+.profile-experience svg {
+  display: block;
 }
 
 .cinematic-experience {
