@@ -903,6 +903,53 @@
   animation: connection-copy-fade-in 700ms ease both;
 }
 
+.connection-ignition-screen__final-action {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: min(100%, 26rem);
+  animation: connection-copy-fade-in 700ms ease both;
+}
+
+.connection-ignition-screen__add-contact {
+  position: relative;
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border: 1px solid var(--lc-blue);
+  border-radius: 999px;
+  padding: 0.95rem 1.75rem;
+  color: var(--lc-white);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.connection-ignition-screen__add-contact:hover {
+  border-color: var(--lc-blue);
+  background: var(--lc-blue);
+  box-shadow: var(--lead-clickz-primary-glow-hover);
+}
+
+.connection-ignition-screen__add-contact:active {
+  transform: translateY(1px);
+}
+
+.connection-ignition-screen__add-contact:focus-visible {
+  outline-color: var(--lc-blue);
+  outline-offset: 4px;
+}
+
 .contact-card-section {
   position: relative;
   isolation: isolate;

@@ -19,17 +19,6 @@ function phoneHref(phone: string) {
   return `tel:${phone.replace(/[^\d+]/g, '')}`;
 }
 
-function downloadVCard(vcfPath: string) {
-  const downloadLink = document.createElement('a');
-  downloadLink.href = vcfPath;
-  downloadLink.download = vcfPath.split('/').pop() ?? 'contact.vcf';
-  downloadLink.type = 'text/vcard';
-  downloadLink.hidden = true;
-  document.body.appendChild(downloadLink);
-  downloadLink.click();
-  window.setTimeout(() => downloadLink.remove(), 0);
-}
-
 async function copyCurrentUrl(url: string) {
   if (navigator.clipboard) {
     await navigator.clipboard.writeText(url);
@@ -127,15 +116,10 @@ export function ContactCardSection({
 
           <div className="contact-card__actions">
             {profile.vcfPath ? (
-              <a
+              <button
                 className="contact-card__action contact-card__action--primary lead-clickz-primary-button"
-                href={profile.vcfPath}
-                download
-                type="text/vcard"
-                onClick={(event) => {
-                  event.preventDefault();
-                  downloadVCard(profile.vcfPath!);
-
+                type="button"
+                onClick={() => {
                   if (onSaveContact) {
                     window.setTimeout(onSaveContact, 180);
                   }
@@ -144,7 +128,7 @@ export function ContactCardSection({
                 <PrimaryButtonPerimeter />
                 <Download size={15} strokeWidth={1.8} aria-hidden="true" />
                  SAVE CONTACT
-              </a>
+              </button>
             ) : (
               <button
                 className="contact-card__action contact-card__action--disabled"

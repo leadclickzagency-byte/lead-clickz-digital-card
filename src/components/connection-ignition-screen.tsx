@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Download } from 'lucide-react';
 import { ConnectionOutroCanvas } from '@/components/connection-outro-canvas';
+import { PrimaryButtonPerimeter } from '@/components/primary-button-perimeter';
 
 type IgnitionPhase =
   | 'symbol'
@@ -26,7 +28,13 @@ const SUPPORTING_FADE_DURATION_MS = 700;
 const COMPLETE_HOLD_MS = 2500;
 const OUTRO_DURATION_MS = 2000;
 
-export function ConnectionIgnitionScreen() {
+type ConnectionIgnitionScreenProps = {
+  vcfPath?: string;
+};
+
+export function ConnectionIgnitionScreen({
+  vcfPath,
+}: ConnectionIgnitionScreenProps) {
   const [phase, setPhase] = useState<IgnitionPhase>('symbol');
 
   useEffect(() => {
@@ -148,6 +156,20 @@ export function ConnectionIgnitionScreen() {
         </div>
       )}
       {phase === 'outro' && <ConnectionOutroCanvas />}
+      {phase === 'finished' && vcfPath && (
+        <div className="connection-ignition-screen__final-action">
+          <a
+            className="connection-ignition-screen__add-contact lead-clickz-primary-button"
+            href={vcfPath}
+            download
+            type="text/vcard"
+          >
+            <PrimaryButtonPerimeter />
+            <Download size={16} strokeWidth={1.8} aria-hidden="true" />
+            ADD TO CONTACTS
+          </a>
+        </div>
+      )}
     </section>
   );
 }

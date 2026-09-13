@@ -174,7 +174,7 @@ export function ProfileExperience({ profile }: ProfileExperienceProps) {
           </div>
         )}
         {stage === 'connectionIgnition' && (
-          <ConnectionIgnitionScreen />
+          <ConnectionIgnitionScreen vcfPath={profile.vcfPath} />
         )}
       </div>
     </AppShell>
