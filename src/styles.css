@@ -633,21 +633,60 @@ a {
 .dock__powered {
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  column-gap: 14px;
-  row-gap: 2px;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
   color: rgba(220, 234, 255, 0.72);
+  text-align: center;
 }
-.dock__powered strong {
-  color: #fff;
-  font-weight: 600;
+.dock__informed {
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: rgba(220, 234, 255, 0.6);
 }
-.dock__powered .psx-word {
+.dock__informed .psx-word {
   font-size: 11px;
+}
+
+/* Lead Clickz credit — same treatment as every Lead Clickz-built site */
+.lcz-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.lcz {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.lcz img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.35s;
+}
+.lcz sup {
+  font-size: 9px;
+  margin-left: -5px;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.lcz:hover,
+.lcz:focus-visible,
+.lcz.tch {
+  color: #1478f0;
+}
+.lcz:hover img,
+.lcz:focus-visible img,
+.lcz.tch img {
+  transform: scale(1.18) rotate(-8deg);
+  filter: drop-shadow(0 0 6px rgba(20, 120, 255, 0.75));
 }
 
 .actions {

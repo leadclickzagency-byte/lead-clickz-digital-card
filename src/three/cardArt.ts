@@ -282,7 +282,7 @@ function paintFront(profile: LeadClickzProfile, wordmark: HTMLImageElement) {
   return { color: c, glow: g };
 }
 
-function paintBack(profile: LeadClickzProfile) {
+function paintBack(profile: LeadClickzProfile, emblem: HTMLImageElement) {
   const c = canvas();
   const g = canvas();
   const ctx = c.getContext('2d')!;
@@ -406,44 +406,66 @@ function paintBack(profile: LeadClickzProfile) {
   gl.fillStyle = rule;
   gl.fillRect(140, lineY, ART_W - 280, 2);
 
-  // Powered by Lead Clickz™ · Informed by SPARC™ Intelligence — centred
-  const base = lineY + 82;
-  const parts: Array<{ text: string; font: string; color: string; glow?: string; track: number }> = [
-    { text: 'POWERED BY ', font: `600 30px ${FONT_BODY}`, color: 'rgba(255,255,255,0.72)', track: 6 },
-    { text: 'LEAD CLICKZ™', font: `700 34px ${FONT_BODY}`, color: '#ffffff', track: 6 },
-    { text: '     ·     ', font: `600 30px ${FONT_BODY}`, color: 'rgba(127,239,255,0.6)', track: 0 },
-    { text: 'INFORMED BY ', font: `600 30px ${FONT_BODY}`, color: 'rgba(255,255,255,0.72)', track: 6 },
-    { text: 'SPARC', font: `400 40px ${FONT_PSX}`, color: BRAND.cyan, glow: 'rgba(34,211,238,0.85)', track: 10 },
-    { text: '™ INTELLIGENCE', font: `700 30px ${FONT_BODY}`, color: '#ffffff', track: 6 },
+  // Powered by [emblem] Lead Clickz™ · Informed by SPARC™ Intelligence — centred, matching the
+  // credit on every Lead Clickz-built site
+  const base = lineY + 84;
+  const em = 52; // emblem height
+  const emW = (emblem.width / emblem.height) * em;
+  type Part = { text?: string; font?: string; color?: string; glow?: string; img?: true; w?: number; gap?: number };
+  const parts: Part[] = [
+    { text: 'Powered by', font: `500 34px ${FONT_BODY}`, color: 'rgba(220,234,255,0.78)', gap: 16 },
+    { img: true, w: emW, gap: 10 },
+    { text: 'Lead Clickz', font: `600 36px ${FONT_BODY}`, color: '#ffffff', gap: 2 },
+    { text: '™', font: `600 20px ${FONT_BODY}`, color: '#ffffff', gap: 44 },
+    { text: 'Informed by', font: `500 34px ${FONT_BODY}`, color: 'rgba(220,234,255,0.78)', gap: 16 },
+    { text: 'SPARC', font: `400 40px ${FONT_PSX}`, color: BRAND.cyan, glow: 'rgba(34,211,238,0.85)', gap: 2 },
+    { text: '™', font: `600 20px ${FONT_BODY}`, color: '#ffffff', gap: 12 },
+    { text: 'Intelligence', font: `500 34px ${FONT_BODY}`, color: 'rgba(220,234,255,0.78)', gap: 0 },
   ];
-  let total = 0;
-  for (const p of parts) {
-    ctx.font = p.font;
-    total += spacedWidth(ctx, p.text, p.track) + p.track;
-  }
+  const widthOf = (p: Part) => {
+    if (p.img) return p.w!;
+    ctx.font = p.font!;
+    return p.text === 'SPARC' ? spacedWidth(ctx, p.text, 8) : ctx.measureText(p.text!).width;
+  };
+  const total = parts.reduce((n, p) => n + widthOf(p) + (p.gap ?? 0), 0);
   let x = ART_W / 2 - total / 2;
   for (const p of parts) {
-    ctx.font = p.font;
-    ctx.fillStyle = p.color;
-    const end = spaced(ctx, p.text, x, base, p.track);
-    if (p.glow) {
-      gl.font = p.font;
-      gl.fillStyle = p.glow;
-      spaced(gl, p.text, x, base, p.track);
+    const w = widthOf(p);
+    if (p.img) {
+      ctx.drawImage(emblem, x, base - em + 10, w, em);
+    } else {
+      ctx.font = p.font!;
+      ctx.fillStyle = p.color!;
+      const y = p.text === '™' ? base - 16 : base;
+      if (p.text === 'SPARC') spaced(ctx, p.text, x, y, 8);
+      else ctx.fillText(p.text!, x, y);
+      if (p.glow) {
+        gl.font = p.font!;
+        gl.fillStyle = p.glow;
+        spaced(gl, p.text!, x, y, 8);
+      }
     }
-    x = end + p.track;
+    x += w + (p.gap ?? 0);
+    if (p.text === '™' && p.gap === 44) {
+      ctx.fillStyle = 'rgba(127,239,255,0.6)';
+      ctx.beginPath();
+      ctx.arc(x - 22, base - 11, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
   return { color: c, glow: g };
 }
 
 let wordmarkPromise: Promise<HTMLImageElement> | null = null;
+let emblemPromise: Promise<HTMLImageElement> | null = null;
 
 export async function paintCardArt(profile: LeadClickzProfile): Promise<CardArt> {
   wordmarkPromise ??= loadImage(asset('/brand/leadclickz-wordmark-light.png'));
-  const [wordmark] = await Promise.all([wordmarkPromise, ensureFonts()]);
+  emblemPromise ??= loadImage(asset('/brand/lead-clickz-emblem-on-dark.png'));
+  const [wordmark, emblem] = await Promise.all([wordmarkPromise, emblemPromise, ensureFonts()]);
   const front = paintFront(profile, wordmark);
-  const back = paintBack(profile);
+  const back = paintBack(profile, emblem);
   const lift = canvas();
   const lctx = lift.getContext('2d')!;
   lctx.fillStyle = '#000';

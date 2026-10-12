@@ -49,6 +49,7 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
   const [arBusy, setArBusy] = useState(false);
   const [xrStatus, setXrStatus] = useState<'off' | 'scanning' | 'placed'>('off');
   const [hintGone, setHintGone] = useState(false);
+  const [lczTouched, setLczTouched] = useState(false);
   const xrOverlay = useRef<HTMLDivElement>(null);
   const xrHandle = useRef<WebXrHandle | null>(null);
   // Taps on the AR action bar must not also count as "place the card here".
@@ -228,10 +229,23 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
           </nav>
 
           <p className="dock__powered">
-            <span>
-              Powered by <strong>Lead Clickz™</strong>
+            <span className="lcz-credit">
+              Powered by{' '}
+              <a
+                className={`lcz ${lczTouched ? 'tch' : ''}`}
+                href="https://leadclickz.com/"
+                target="_blank"
+                rel="noopener"
+                onTouchStart={() => {
+                  setLczTouched(true);
+                  window.setTimeout(() => setLczTouched(false), 1200);
+                }}
+              >
+                <img src={asset('/brand/lead-clickz-emblem-on-dark.png')} alt="" aria-hidden="true" width="20" height="20" />
+                Lead Clickz<sup>™</sup>
+              </a>
             </span>
-            <span>
+            <span className="dock__informed">
               Informed by <span className="psx-word"><b>SPARC</b></span>™ Intelligence
             </span>
           </p>
