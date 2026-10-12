@@ -1,4 +1,5 @@
 import sparcLines from './sparc-lines.json';
+import { asset } from '../asset';
 
 export type ProfileSlug = 'thomas' | 'tiffany';
 
@@ -48,7 +49,7 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     email: 'Thomas@leadclickz.com',
     linkedInUrl: 'https://www.linkedin.com/in/thlopez/',
     website: 'https://leadclickz.com',
-    vcfPath: '/contacts/thomas-lopez.vcf',
+    vcfPath: asset('/contacts/thomas-lopez.vcf'),
     sparc: [lines.shared, lines.profiles.thomas],
   },
   tiffany: {
@@ -63,7 +64,7 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     email: 'T.Lopez@leadclickz.com',
     linkedInUrl: 'https://www.linkedin.com/in/tiffany-lopez',
     website: 'https://leadclickz.com',
-    vcfPath: '/contacts/tiffany-lopez.vcf',
+    vcfPath: asset('/contacts/tiffany-lopez.vcf'),
     sparc: [lines.shared, lines.profiles.tiffany],
   },
 };

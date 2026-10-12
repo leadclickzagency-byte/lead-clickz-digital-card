@@ -8,6 +8,7 @@ import type { ArMode, WebXrHandle } from '@/ar/ar';
 const loadAr = () => import('@/ar/ar');
 import { setSoundEnabled, soundEnabled, unlockSound, startMusic } from '@/sound';
 import { SparcPresence } from '@/sparc/SparcPresence';
+import { asset } from '@/asset';
 import {
   BoltMark,
   IconClose,
@@ -166,7 +167,7 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
       <header className={`topbar ${revealed ? 'is-in' : ''}`}>
         <div className="topbar__brand">
           <BoltMark size={26} />
-          <img src="/brand/leadclickz-wordmark-dark.png" alt="Lead Clickz™" />
+          <img src={asset('/brand/leadclickz-wordmark-dark.png')} alt="Lead Clickz™" />
         </div>
         <div className="topbar__tools">
           <button type="button" className="icon-btn" onClick={toggleSound} aria-label={soundOn ? 'Mute sound' : 'Turn sound on'}>

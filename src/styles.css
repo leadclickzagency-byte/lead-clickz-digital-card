@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Spaced';
-  src: url('/fonts/Spaced-Regular.woff2') format('woff2');
+  src: url('./fonts/Spaced-Regular.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
@@ -1007,4 +1007,34 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
   }
+}
+
+/* Preview-only switcher between cards */
+.card-switcher {
+  position: fixed;
+  top: calc(var(--safe-top) + 62px);
+  left: 50%;
+  z-index: 60;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(9, 13, 22, 0.7);
+  border: 1px solid var(--hairline);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.card-switcher a {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+.card-switcher a[aria-current='page'],
+.card-switcher a.is-on {
+  color: #fff;
+  background: rgba(2, 123, 255, 0.35);
 }

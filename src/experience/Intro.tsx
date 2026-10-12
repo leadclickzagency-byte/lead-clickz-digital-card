@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { LeadClickzProfile } from '@/data/profiles';
 import { BoltMark } from './Icons';
+import { asset } from '@/asset';
 
 /* ── Ignite gate: the first tap unlocks sound and motion sensors ───── */
 
@@ -13,7 +14,7 @@ export function IgniteGate({ profile, onStart }: { profile: LeadClickzProfile; o
         <BoltMark size={112} glow />
       </div>
       <p className="gate__eyebrow">
-        <img src="/brand/leadclickz-wordmark-dark.png" alt="Lead Clickz" className="gate__wordmark" />
+        <img src={asset('/brand/leadclickz-wordmark-dark.png')} alt="Lead Clickz" className="gate__wordmark" />
       </p>
       <h1 className="gate__title">
         This isn’t a business card.
@@ -67,7 +68,7 @@ export function Cinematic({ sound, onDone }: { sound: boolean; onDone: () => voi
       <video
         ref={ref}
         className={`cinematic__video ${ready ? 'is-ready' : ''}`}
-        src="/video/lead-clickz-cinematic.mp4"
+        src={asset('/video/lead-clickz-cinematic.mp4')}
         playsInline
         preload="auto"
         onCanPlay={() => setReady(true)}

@@ -4,7 +4,9 @@
  * through Web Audio gain nodes; SPARC's voice also feeds an analyser that drives the orb.
  */
 
-const MUSIC_SRC = '/audio/lead-clickz-theme.m4a';
+import { asset } from '@/asset';
+
+const MUSIC_SRC = asset('/audio/lead-clickz-theme.mp3');
 
 type Graph = {
   ctx: AudioContext;
@@ -18,6 +20,7 @@ type Graph = {
 
 let graph: Graph | null = null;
 let enabled = false;
+let currentVoice = '';
 const levelBuffer = new Uint8Array(512);
 
 function createElement(src?: string) {
@@ -25,7 +28,7 @@ function createElement(src?: string) {
   el.preload = 'auto';
   el.crossOrigin = 'anonymous';
   el.setAttribute('playsinline', '');
-  if (src) el.src = src;
+  if (src) el.src = asset(src);
   return el;
 }
 
@@ -66,6 +69,7 @@ export function unlockSound(firstVoiceSrc?: string) {
     music.loop = true;
     ctx.createMediaElementSource(music).connect(musicGain);
     const voice = createElement(firstVoiceSrc);
+    currentVoice = firstVoiceSrc ?? '';
     ctx.createMediaElementSource(voice).connect(analyser);
     graph = { ctx, master, musicGain, voiceGain, analyser, music, voice };
     prime(voice);
@@ -122,7 +126,10 @@ export function playVoice(src: string): Promise<boolean> {
     const onError = () => done(false);
     voice.addEventListener('ended', onEnded);
     voice.addEventListener('error', onError);
-    if (!voice.src.endsWith(src)) voice.src = src;
+    if (currentVoice !== src) {
+      voice.src = asset(src);
+      currentVoice = src;
+    }
     voice.currentTime = 0;
     voice.play().catch(() => done(false));
   });

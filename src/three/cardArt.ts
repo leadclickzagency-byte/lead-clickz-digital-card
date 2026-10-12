@@ -1,4 +1,5 @@
 import type { LeadClickzProfile } from '@/data/profiles';
+import { asset } from '@/asset';
 
 /**
  * Paints both faces of the card into canvases. Each face has a colour layer (map) and a glow
@@ -430,7 +431,7 @@ function paintBack(profile: LeadClickzProfile) {
 let wordmarkPromise: Promise<HTMLImageElement> | null = null;
 
 export async function paintCardArt(profile: LeadClickzProfile): Promise<CardArt> {
-  wordmarkPromise ??= loadImage('/brand/leadclickz-wordmark-light.png');
+  wordmarkPromise ??= loadImage(asset('/brand/leadclickz-wordmark-light.png'));
   const [wordmark] = await Promise.all([wordmarkPromise, ensureFonts()]);
   const front = paintFront(profile, wordmark);
   const back = paintBack(profile);
