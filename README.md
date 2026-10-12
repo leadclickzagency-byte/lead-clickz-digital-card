@@ -43,7 +43,7 @@ It writes `public/audio/sparc-<slug>.mp3`, re-times the captions, and links the 
 | Path | What |
 | --- | --- |
 | `src/three/CardStage.ts` | Three.js scene: signal field, lightning, particle assembly, PSX orbit rings, selective bloom, gestures, gyro |
-| `src/three/cardArt.ts` | Paints both card faces (and their glow layers) and the QR |
+| `src/three/cardArt.ts` | Paints both card faces and their glow layers |
 | `src/three/cardModel.ts` | The physical card mesh and materials |
 | `src/ar/ar.ts` | AR Quick Look (USDZ export) and WebXR placement |
 | `src/sparc/` | SPARC orb (ported from Power SPARC X) and the speaking presence |
