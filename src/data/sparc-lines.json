@@ -1,0 +1,63 @@
+{
+  "shared": {
+    "audio": "/audio/sparc-active.m4a",
+    "captions": [
+      {
+        "at": 0,
+        "text": "SPARC active."
+      },
+      {
+        "at": 1.2,
+        "text": "Every click, search and mention"
+      },
+      {
+        "at": 2.55,
+        "text": "is a signal."
+      }
+    ]
+  },
+  "profiles": {
+    "thomas": {
+      "script": "Signal locked. Thomas Lopez, founder of Lead Clickz. Save his card, and let's turn your signals into decisions.",
+      "captions": [
+        {
+          "at": 0,
+          "text": "Signal locked."
+        },
+        {
+          "at": 1.1,
+          "text": "Thomas Lopez, founder of Lead Clickz™."
+        },
+        {
+          "at": 3.4,
+          "text": "Save his card — and let’s turn"
+        },
+        {
+          "at": 5.1,
+          "text": "your signals into decisions."
+        }
+      ]
+    },
+    "tiffany": {
+      "script": "Signal locked. Tiffany Lopez, CEO of Lead Clickz. Save her card, and let's turn your signals into decisions.",
+      "captions": [
+        {
+          "at": 0,
+          "text": "Signal locked."
+        },
+        {
+          "at": 1.1,
+          "text": "Tiffany Lopez, CEO of Lead Clickz™."
+        },
+        {
+          "at": 3.2,
+          "text": "Save her card — and let’s turn"
+        },
+        {
+          "at": 4.9,
+          "text": "your signals into decisions."
+        }
+      ]
+    }
+  }
+}

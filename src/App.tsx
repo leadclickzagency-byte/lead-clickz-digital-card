@@ -1,57 +1,39 @@
-import { type ReactNode } from 'react';
-import { ErrorBoundary } from '@/components/error-boundary';
-import { AppShell } from '@/components/app-shell';
-import { ProfileExperience } from '@/components/profile-experience';
-import {
-  getLeadClickzProfile,
-  leadClickzProfiles,
-} from '@/data/profiles';
-import NotFound from '@/pages/not-found';
-import {
-  Route,
-  Router as WouterRouter,
-  Switch,
-  useRoute,
-  useLocation,
-} from 'wouter';
-
-function Home() {
-  return <ProfileExperience profile={leadClickzProfiles.thomas} />;
-}
+import { Route, Switch, useRoute } from 'wouter';
+import { getLeadClickzProfile, leadClickzProfiles } from '@/data/profiles';
+import { Experience } from '@/experience/Experience';
+import { BoltMark } from '@/experience/Icons';
 
 function ProfileRoute() {
-  const [, params] = useRoute('/:profileSlug');
-  const profile = params
-    ? getLeadClickzProfile(params.profileSlug)
-    : undefined;
-
-  return profile ? <ProfileExperience profile={profile} /> : <NotFound />;
+  const [, params] = useRoute('/:slug');
+  const profile = params ? getLeadClickzProfile(params.slug) : undefined;
+  return profile ? <Experience key={profile.slug} profile={profile} /> : <NotFound />;
 }
 
-function Router() {
+function NotFound() {
   return (
-    <RoutedErrorBoundary>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/:profileSlug" component={ProfileRoute} />
-        <Route component={NotFound} />
-      </Switch>
-    </RoutedErrorBoundary>
+    <main className="not-found">
+      <BoltMark size={72} glow />
+      <h1>That card isn’t live.</h1>
+      <p>The link may be mistyped. Meet the Lead Clickz™ team instead:</p>
+      <nav>
+        {Object.values(leadClickzProfiles).map((p) => (
+          <a key={p.slug} className="btn btn--ghost" href={`/${p.slug}`}>
+            {p.name}
+          </a>
+        ))}
+      </nav>
+    </main>
   );
 }
 
-function RoutedErrorBoundary({ children }: { children: ReactNode }) {
-  const [location] = useLocation();
-
-  return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;
-}
-
-function App() {
+export function App() {
   return (
-    <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-      <Router />
-    </WouterRouter>
+    <Switch>
+      <Route path="/">
+        <Experience profile={leadClickzProfiles.thomas} />
+      </Route>
+      <Route path="/:slug" component={ProfileRoute} />
+      <Route component={NotFound} />
+    </Switch>
   );
 }
-
-export default App;
