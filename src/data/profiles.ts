@@ -36,6 +36,12 @@ type SparcLinesFile = {
 
 const lines = sparcLines as SparcLinesFile;
 
+/** SPARC's pitch (his real voice), then the person's own line once it has been voiced. */
+function sparcFor(slug: ProfileSlug): SparcLine[] {
+  const own = lines.profiles[slug];
+  return own?.audio ? [lines.shared, own] : [lines.shared];
+}
+
 export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
   thomas: {
     slug: 'thomas',
@@ -50,7 +56,7 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     linkedInUrl: 'https://www.linkedin.com/in/thlopez/',
     website: 'https://leadclickz.com',
     vcfPath: asset('/contacts/thomas-lopez.vcf'),
-    sparc: [lines.shared, lines.profiles.thomas],
+    sparc: sparcFor('thomas'),
   },
   tiffany: {
     slug: 'tiffany',
@@ -65,7 +71,7 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     linkedInUrl: 'https://www.linkedin.com/in/tiffany-lopez',
     website: 'https://leadclickz.com',
     vcfPath: asset('/contacts/tiffany-lopez.vcf'),
-    sparc: [lines.shared, lines.profiles.tiffany],
+    sparc: sparcFor('tiffany'),
   },
 };
 

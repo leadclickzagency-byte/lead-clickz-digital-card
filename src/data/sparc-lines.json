@@ -1,9 +1,10 @@
 {
+  "_note": "shared is SPARC's real voice, stitched from his Power SPARC X / Lead Clickz recordings. A profile line plays after it only once it has audio (pnpm voice).",
   "shared": {
-    "audio": "/audio/sparc-active.mp3",
+    "audio": "/audio/sparc-pitch.mp3",
     "captions": [
       {
-        "at": 0,
+        "at": 0.0,
         "text": "SPARC active."
       },
       {
@@ -13,121 +14,81 @@
       {
         "at": 2.55,
         "text": "is a signal."
+      },
+      {
+        "at": 4.22,
+        "text": "Most businesses operate in fragments."
+      },
+      {
+        "at": 6.57,
+        "text": "Because businesses rarely fail from a lack of effort,"
+      },
+      {
+        "at": 9.07,
+        "text": "they fail because of a lack of alignment."
+      },
+      {
+        "at": 11.61,
+        "text": "If you are not the answer,"
+      },
+      {
+        "at": 12.76,
+        "text": "you are not chosen."
+      },
+      {
+        "at": 14.41,
+        "text": "Power SPARC X™ brings every signal into one system,"
+      },
+      {
+        "at": 17.36,
+        "text": "so you can see what is happening,"
+      },
+      {
+        "at": 18.96,
+        "text": "understand why, and control what happens next."
+      },
+      {
+        "at": 22.04,
+        "text": "A proprietary system developed by Lead Clickz™."
+      },
+      {
+        "at": 24.88,
+        "text": "We do not add effort."
+      },
+      {
+        "at": 26.33,
+        "text": "We remove what is holding growth back."
+      },
+      {
+        "at": 28.69,
+        "text": "If you are ready, proceed."
       }
     ]
   },
   "profiles": {
     "thomas": {
-      "script": "Right now, your customers are telling you exactly what they want. Every search. Every click. Every review. Most businesses never hear it. Lead Clickz hears all of it. I read the signals in your market, and the Lead Clickz team turns them into campaigns that bring you real customers. While your competitors guess, you decide. You just met Thomas Lopez, founder of Lead Clickz. Save his card. Let's go win your market.",
+      "script": "You just met Thomas Lopez, founder of Lead Clickz. Save his card, and let's go win your market.",
       "captions": [
         {
           "at": 0,
-          "text": "Right now, your customers are telling you"
-        },
-        {
-          "at": 2.2,
-          "text": "exactly what they want."
-        },
-        {
-          "at": 3.6,
-          "text": "Every search. Every click. Every review."
-        },
-        {
-          "at": 6.2,
-          "text": "Most businesses never hear it."
-        },
-        {
-          "at": 8.0,
-          "text": "Lead Clickz™ hears all of it."
-        },
-        {
-          "at": 9.8,
-          "text": "I read the signals in your market,"
-        },
-        {
-          "at": 11.8,
-          "text": "and the Lead Clickz™ team turns them"
-        },
-        {
-          "at": 13.6,
-          "text": "into campaigns that bring you real customers."
-        },
-        {
-          "at": 16.4,
-          "text": "While your competitors guess,"
-        },
-        {
-          "at": 18.0,
-          "text": "you decide."
-        },
-        {
-          "at": 19.4,
           "text": "You just met Thomas Lopez, founder of Lead Clickz™."
         },
         {
-          "at": 22.4,
-          "text": "Save his card."
-        },
-        {
-          "at": 23.6,
-          "text": "Let’s go win your market."
+          "at": 2.8,
+          "text": "Save his card — and let’s go win your market."
         }
       ]
     },
     "tiffany": {
-      "script": "Right now, your customers are telling you exactly what they want. Every search. Every click. Every review. Most businesses never hear it. Lead Clickz hears all of it. I read the signals in your market, and the Lead Clickz team turns them into campaigns that bring you real customers. While your competitors guess, you decide. You just met Tiffany Lopez, CEO of Lead Clickz. Save her card. Let's go win your market.",
+      "script": "You just met Tiffany Lopez, CEO of Lead Clickz. Save her card, and let's go win your market.",
       "captions": [
         {
           "at": 0,
-          "text": "Right now, your customers are telling you"
-        },
-        {
-          "at": 2.2,
-          "text": "exactly what they want."
-        },
-        {
-          "at": 3.6,
-          "text": "Every search. Every click. Every review."
-        },
-        {
-          "at": 6.2,
-          "text": "Most businesses never hear it."
-        },
-        {
-          "at": 8.0,
-          "text": "Lead Clickz™ hears all of it."
-        },
-        {
-          "at": 9.8,
-          "text": "I read the signals in your market,"
-        },
-        {
-          "at": 11.8,
-          "text": "and the Lead Clickz™ team turns them"
-        },
-        {
-          "at": 13.6,
-          "text": "into campaigns that bring you real customers."
-        },
-        {
-          "at": 16.4,
-          "text": "While your competitors guess,"
-        },
-        {
-          "at": 18.0,
-          "text": "you decide."
-        },
-        {
-          "at": 19.4,
           "text": "You just met Tiffany Lopez, CEO of Lead Clickz™."
         },
         {
-          "at": 22.4,
-          "text": "Save her card."
-        },
-        {
-          "at": 23.6,
-          "text": "Let’s go win your market."
+          "at": 2.7,
+          "text": "Save her card — and let’s go win your market."
         }
       ]
     }
