@@ -32,10 +32,10 @@ Handy URLs: `?intro=0` skips the intro.
 
 `public/audio/sparc-pitch.mp3` is SPARC's real voice, stitched from his recordings in the Lead Clickz site (`public/prerecordings/`) and the Power SPARC X greeting, with captions in `src/data/sparc-lines.json`.
 
-Each card also has a personal line ("You just met Thomas Lopez…") that plays after the pitch once it's voiced. To record those in SPARC's Cartesia voice (one paid call per card, only when you run it):
+Each card also has a personal line ("You just met Thomas Lopez…") that plays after the pitch, recorded in SPARC's Cartesia voice. To re-record after editing the script in `sparc-lines.json` (one paid call per card, only when you run it):
 
 ```bash
-CARTESIA_API_KEY=… CARTESIA_VOICE_ID=… pnpm voice          # or: pnpm voice tiffany
+CARTESIA_API_KEY=… CARTESIA_VOICE_ID=1661c7a4-011a-4f03-8d05-a24dd7c3a9cc pnpm voice   # or: pnpm voice tiffany
 ```
 
 ## Layout

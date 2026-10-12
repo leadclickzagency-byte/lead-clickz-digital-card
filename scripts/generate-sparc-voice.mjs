@@ -19,7 +19,7 @@ const outDir = path.join(root, 'public/audio');
 
 const apiKey = process.env.CARTESIA_API_KEY;
 const voiceId = process.env.CARTESIA_VOICE_ID;
-const model = process.env.CARTESIA_MODEL ?? 'sonic-2';
+const model = process.env.CARTESIA_MODEL ?? 'sonic-3';
 if (!apiKey || !voiceId) {
   console.error('Set CARTESIA_API_KEY and CARTESIA_VOICE_ID (SPARC voice) first.');
   process.exit(1);

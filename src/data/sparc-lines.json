@@ -1,10 +1,10 @@
 {
-  "_note": "shared is SPARC's real voice, stitched from his Power SPARC X / Lead Clickz recordings. A profile line plays after it only once it has audio (pnpm voice).",
+  "_note": "shared is SPARC's real voice, stitched from his recordings. Each profile line is SPARC's Cartesia voice (voice 'sparc'), recorded with pnpm voice.",
   "shared": {
     "audio": "/audio/sparc-pitch.mp3",
     "captions": [
       {
-        "at": 0.0,
+        "at": 0,
         "text": "SPARC active."
       },
       {
@@ -74,10 +74,11 @@
           "text": "You just met Thomas Lopez, founder of Lead Clickz™."
         },
         {
-          "at": 2.8,
+          "at": 3.5,
           "text": "Save his card — and let’s go win your market."
         }
-      ]
+      ],
+      "audio": "/audio/sparc-thomas.mp3"
     },
     "tiffany": {
       "script": "You just met Tiffany Lopez, CEO of Lead Clickz. Save her card, and let's go win your market.",
@@ -87,10 +88,11 @@
           "text": "You just met Tiffany Lopez, CEO of Lead Clickz™."
         },
         {
-          "at": 2.7,
+          "at": 3.6,
           "text": "Save her card — and let’s go win your market."
         }
-      ]
+      ],
+      "audio": "/audio/sparc-tiffany.mp3"
     }
   }
 }
