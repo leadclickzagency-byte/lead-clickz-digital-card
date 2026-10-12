@@ -1,0 +1,98 @@
+{
+  "_note": "shared is SPARC's real voice, stitched from his recordings. Each profile line is SPARC's Cartesia voice (voice 'sparc'), recorded with pnpm voice.",
+  "shared": {
+    "audio": "/audio/sparc-pitch.mp3",
+    "captions": [
+      {
+        "at": 0,
+        "text": "SPARC active."
+      },
+      {
+        "at": 1.2,
+        "text": "Every click, search and mention"
+      },
+      {
+        "at": 2.55,
+        "text": "is a signal."
+      },
+      {
+        "at": 4.22,
+        "text": "Most businesses operate in fragments."
+      },
+      {
+        "at": 6.57,
+        "text": "Because businesses rarely fail from a lack of effort,"
+      },
+      {
+        "at": 9.07,
+        "text": "they fail because of a lack of alignment."
+      },
+      {
+        "at": 11.61,
+        "text": "If you are not the answer,"
+      },
+      {
+        "at": 12.76,
+        "text": "you are not chosen."
+      },
+      {
+        "at": 14.41,
+        "text": "Power SPARC X™ brings every signal into one system,"
+      },
+      {
+        "at": 17.36,
+        "text": "so you can see what is happening,"
+      },
+      {
+        "at": 18.96,
+        "text": "understand why, and control what happens next."
+      },
+      {
+        "at": 22.04,
+        "text": "A proprietary system developed by Lead Clickz™."
+      },
+      {
+        "at": 24.88,
+        "text": "We do not add effort."
+      },
+      {
+        "at": 26.33,
+        "text": "We remove what is holding growth back."
+      },
+      {
+        "at": 28.69,
+        "text": "If you are ready, proceed."
+      }
+    ]
+  },
+  "profiles": {
+    "thomas": {
+      "script": "You just met Thomas Lopez, founder of Lead Clickz. Save his card, and let's go win your market.",
+      "captions": [
+        {
+          "at": 0,
+          "text": "You just met Thomas Lopez, founder of Lead Clickz™."
+        },
+        {
+          "at": 3.5,
+          "text": "Save his card — and let’s go win your market."
+        }
+      ],
+      "audio": "/audio/sparc-thomas.mp3"
+    },
+    "tiffany": {
+      "script": "You just met Tiffany Lopez, CEO of Lead Clickz. Save her card, and let's go win your market.",
+      "captions": [
+        {
+          "at": 0,
+          "text": "You just met Tiffany Lopez, CEO of Lead Clickz™."
+        },
+        {
+          "at": 3.6,
+          "text": "Save her card — and let’s go win your market."
+        }
+      ],
+      "audio": "/audio/sparc-tiffany.mp3"
+    }
+  }
+}

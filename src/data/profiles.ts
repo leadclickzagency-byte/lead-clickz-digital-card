@@ -1,50 +1,85 @@
+import sparcLines from './sparc-lines.json';
+import { asset } from '../asset';
+
 export type ProfileSlug = 'thomas' | 'tiffany';
+
+export type SparcCaption = { at: number; text: string };
+
+export type SparcLine = {
+  /** Audio file in /public. Missing audio falls back to captions only. */
+  audio?: string;
+  captions: SparcCaption[];
+};
 
 export type LeadClickzProfile = {
   slug: ProfileSlug;
   name: string;
-  title?: string;
-  company?: string;
-  mobilePhone?: string;
-  officePhone?: string;
-  email?: string;
-  linkedInUrl?: string;
-  website?: string;
-  photoPath?: string;
-  vcfPath?: string;
+  firstName: string;
+  title: string;
+  /** Short credential for headlines, e.g. "Founder". */
+  role: string;
+  company: string;
+  mobilePhone: string;
+  officePhone: string;
+  email: string;
+  linkedInUrl: string;
+  website: string;
+  vcfPath: string;
+  /** What SPARC says once the card has landed. */
+  sparc: SparcLine[];
 };
+
+type SparcLinesFile = {
+  shared: SparcLine;
+  profiles: Record<ProfileSlug, SparcLine>;
+};
+
+const lines = sparcLines as SparcLinesFile;
+
+/** SPARC's pitch (his real voice), then the person's own line once it has been voiced. */
+function sparcFor(slug: ProfileSlug): SparcLine[] {
+  const own = lines.profiles[slug];
+  return own?.audio ? [lines.shared, own] : [lines.shared];
+}
 
 export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
   thomas: {
     slug: 'thomas',
     name: 'Thomas Lopez',
-    title: 'Owner/Founder',
+    firstName: 'Thomas',
+    title: 'Owner / Founder',
+    role: 'Founder',
     company: 'Lead Clickz™',
     mobilePhone: '281-770-6927',
     officePhone: '832-585-7538',
     email: 'Thomas@leadclickz.com',
     linkedInUrl: 'https://www.linkedin.com/in/thlopez/',
     website: 'https://leadclickz.com',
-    vcfPath: '/contacts/thomas-lopez.vcf',
+    vcfPath: asset('/contacts/thomas-lopez.vcf'),
+    sparc: sparcFor('thomas'),
   },
   tiffany: {
     slug: 'tiffany',
     name: 'Tiffany Lopez',
-    title: 'Co-Owner/CEO',
+    firstName: 'Tiffany',
+    title: 'Co-Owner / CEO',
+    role: 'CEO',
     company: 'Lead Clickz™',
     mobilePhone: '832-444-8398',
     officePhone: '832-585-7538',
     email: 'T.Lopez@leadclickz.com',
     linkedInUrl: 'https://www.linkedin.com/in/tiffany-lopez',
     website: 'https://leadclickz.com',
-    vcfPath: '/contacts/tiffany-lopez.vcf',
+    vcfPath: asset('/contacts/tiffany-lopez.vcf'),
+    sparc: sparcFor('tiffany'),
   },
 };
 
-export function getLeadClickzProfile(
-  slug: string,
-): LeadClickzProfile | undefined {
-  return Object.entries(leadClickzProfiles).find(
-    ([profileSlug]) => profileSlug === slug,
-  )?.[1];
+export function getLeadClickzProfile(slug: string): LeadClickzProfile | undefined {
+  const key = slug.toLowerCase() as ProfileSlug;
+  return Object.hasOwn(leadClickzProfiles, key) ? leadClickzProfiles[key] : undefined;
+}
+
+export function profileUrl(profile: LeadClickzProfile) {
+  return `${window.location.origin}/${profile.slug}`;
 }

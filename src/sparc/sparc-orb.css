@@ -1,0 +1,126 @@
+/* SPARC™ orb — ported from Power SPARC X (src/app/psx-system.css, "SPARC orb (Personal SPARC visual)"). Keep in sync. */
+.psx-sv{
+  --k:1;
+  position:relative;width:var(--sv-wrap);height:var(--sv-wrap);
+  display:grid;place-items:center;isolation:isolate;flex:none;
+}
+.psx-sv-backlight{
+  position:absolute;left:50%;top:50%;width:78%;height:78%;transform:translate(-50%,-50%);
+  border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at center,rgba(255,255,255,.92) 0 2%,rgba(207,252,255,.78) 7%,rgba(34,211,238,.42) 19%,rgba(2,123,255,.18) 36%,transparent 66%);
+  box-shadow:0 0 calc(30px*var(--k)) rgba(207,252,255,.72),0 0 calc(64px*var(--k)) rgba(34,211,238,.52),0 0 calc(110px*var(--k)) rgba(2,123,255,.30);
+  opacity:.82;animation:psxSvBacklight 2.8s ease-in-out infinite;
+}
+.psx-sv-backlight:before,.psx-sv-backlight:after{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.psx-sv-backlight:before{
+  width:155%;height:14%;
+  background:linear-gradient(90deg,transparent,rgba(127,239,255,.22),rgba(233,254,255,.88),rgba(127,239,255,.22),transparent);
+  filter:blur(calc(7px*var(--k)));animation:psxSvRay 3.4s ease-in-out infinite;
+}
+.psx-sv-backlight:after{
+  width:14%;height:155%;
+  background:linear-gradient(180deg,transparent,rgba(127,239,255,.20),rgba(233,254,255,.82),rgba(127,239,255,.20),transparent);
+  filter:blur(calc(7px*var(--k)));animation:psxSvRay 3.4s ease-in-out infinite reverse;
+}
+.psx-sv-ring{
+  position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;z-index:2;
+  border:1px solid rgba(34,211,238,var(--sv-ring-opacity));
+  box-shadow:0 0 calc(10px*var(--k)) rgba(34,211,238,.32),inset 0 0 calc(8px*var(--k)) rgba(207,252,255,.15);
+  filter:brightness(var(--sv-ring-brightness));
+}
+.psx-sv-ring:before,.psx-sv-ring:after{
+  content:"";position:absolute;border-radius:50%;background:#cffcff;
+  box-shadow:0 0 calc(7px*var(--k)) #e9feff,0 0 calc(16px*var(--k)) rgba(34,211,238,.95),0 0 calc(28px*var(--k)) rgba(2,123,255,.6);
+}
+.psx-sv-ring:before{width:calc(7px*var(--k) + 1.5px);height:calc(7px*var(--k) + 1.5px);left:8%;top:15%}
+.psx-sv-ring:after{width:calc(4px*var(--k) + 1px);height:calc(4px*var(--k) + 1px);right:13%;bottom:18%}
+.psx-sv-ring-a{width:92%;height:58%;transform:translate(-50%,-50%) rotate(18deg);animation:psxSvRingA 7.5s linear infinite}
+.psx-sv-ring-b{width:84%;height:66%;transform:translate(-50%,-50%) rotate(-34deg);opacity:.78;animation:psxSvRingB 10.5s linear infinite reverse}
+.psx-sv-ring-c{width:68%;height:94%;transform:translate(-50%,-50%) rotate(61deg);opacity:.58;animation:psxSvRingC 13s linear infinite}
+.psx-sv-halo{
+  position:absolute;inset:1.2%;border-radius:50%;
+  border:1px solid rgba(2,123,255,.38);
+  box-shadow:0 0 calc(45px*var(--k)) rgba(2,123,255,.14),inset 0 0 calc(40px*var(--k)) rgba(207,252,255,.32);
+  animation:psxSvHalo 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 var(--sv-halo-glow) rgba(34,211,238,.28));
+}
+.psx-sv-halo:before,.psx-sv-halo:after{content:"";position:absolute;border-radius:50%;inset:6.3%;border:1px solid rgba(34,211,238,.2)}
+.psx-sv-halo:after{inset:-4.6%;border-color:rgba(2,123,255,.15)}
+.psx-sv-orbit{
+  position:absolute;width:var(--sv-orbit);height:var(--sv-orbit);border-radius:50%;
+  border:1px solid rgba(34,211,238,.48);animation:psxSvSpin 14s linear infinite;
+  box-shadow:0 0 calc(14px*var(--k)) rgba(2,123,255,.22),inset 0 0 calc(12px*var(--k)) rgba(34,211,238,.12);
+}
+.psx-sv-orbit:after{
+  content:"";position:absolute;top:calc(-4px*var(--k) - 1px);left:50%;
+  width:calc(8px*var(--k) + 2px);height:calc(8px*var(--k) + 2px);border-radius:50%;
+  background:#cffcff;box-shadow:0 0 calc(8px*var(--k)) #e9feff,0 0 calc(20px*var(--k)) rgba(34,211,238,.95),0 0 calc(34px*var(--k)) rgba(2,123,255,.55);
+}
+.psx-sv-core{
+  position:relative;width:var(--sv-core);height:var(--sv-core);border-radius:50%;overflow:hidden;z-index:3;
+  background:radial-gradient(circle at 43% 39%,#fff 0 4%,#cffcff 12%,#22d3ee 30%,#027bff 54%,#0066d6 74%,#0052ad 100%);
+  box-shadow:0 calc(20px*var(--k)) calc(50px*var(--k)) rgba(2,123,255,.24),0 0 calc(42px*var(--k)) rgba(34,211,238,.32),inset 0 0 calc(28px*var(--k)) rgba(255,255,255,.24);
+  border:1px solid rgba(255,255,255,.92);
+  transform:scale(var(--sv-core-scale));
+  filter:brightness(var(--sv-brightness)) saturate(var(--sv-saturation));
+  transition:transform 55ms linear,filter 55ms linear,box-shadow 80ms linear;
+}
+.psx-sv-core:before,.psx-sv-core:after{
+  content:"";position:absolute;inset:-35%;
+  background:conic-gradient(from 20deg,transparent 0 16%,rgba(255,255,255,.74) 17%,transparent 19% 38%,rgba(127,239,255,.8) 39%,transparent 41% 68%,rgba(255,255,255,.58) 69%,transparent 72%);
+  animation:psxSvSpin 10s linear infinite;filter:blur(1px);
+}
+.psx-sv-core:after{animation-direction:reverse;animation-duration:15s;opacity:.45;transform:scale(.72)}
+.psx-sv-energy{
+  position:absolute;left:50%;top:50%;width:11%;height:11%;border-radius:50%;z-index:5;
+  transform:translate(-50%,-50%) scale(var(--sv-energy-scale));
+  background:#fff;box-shadow:0 0 calc(12px*var(--k)) #fff,0 0 calc(30px*var(--k)) #7fefff,0 0 calc(52px*var(--k)) #027bff;
+  transition:transform 55ms linear,box-shadow 55ms linear;
+}
+.psx-sv-particles{position:absolute;inset:0;z-index:4}
+.psx-sv-particles i{
+  position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);
+  margin-left:calc(var(--s)/-2);margin-top:calc(var(--s)/-2);border-radius:50%;
+  background:radial-gradient(circle,#fff 0 30%,#cffcff 48%,#22d3ee 100%);
+  box-shadow:0 0 calc(7px*var(--k)) #e9feff,0 0 calc(18px*var(--k)) rgba(34,211,238,.92),0 0 calc(28px*var(--k)) rgba(2,123,255,.42);
+  opacity:var(--sv-particle-opacity);filter:brightness(var(--sv-particle-brightness));
+  animation:psxSvParticleIdle 3.4s ease-in-out infinite;animation-delay:var(--d);
+}
+.psx-sv-bolt{
+  position:absolute;inset:0;display:grid;place-items:center;color:#fff;z-index:6;
+  font-size:var(--sv-bolt);font-weight:200;line-height:1;font-family:system-ui,sans-serif;
+  text-shadow:0 0 calc(16px*var(--k) + 2px) rgba(255,255,255,.85);transform:rotate(-8deg);opacity:.72;
+}
+.psx-sv-wave{
+  position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;z-index:2;
+  border:1px solid rgba(34,211,238,.62);opacity:var(--sv-wave-opacity);
+  transition:transform 55ms linear,opacity 55ms linear,box-shadow 55ms linear;
+}
+.psx-sv-wave-a{width:70%;height:70%;transform:translate(-50%,-50%) scale(var(--sv-wave-a-scale));box-shadow:0 0 var(--sv-wave-glow) rgba(34,211,238,.24)}
+.psx-sv-wave-b{width:80%;height:80%;transform:translate(-50%,-50%) scale(var(--sv-wave-b-scale));opacity:var(--sv-wave-b-opacity)}
+.psx-sv-wave-c{width:91%;height:91%;transform:translate(-50%,-50%) scale(var(--sv-wave-c-scale));opacity:var(--sv-wave-c-opacity)}
+.psx-sv.speaking .psx-sv-core{box-shadow:0 calc(20px*var(--k)) calc(55px*var(--k)) rgba(2,123,255,.3),0 0 calc(68px*var(--k)) rgba(34,211,238,.42),inset 0 0 calc(30px*var(--k)) rgba(255,255,255,.26)}
+.psx-sv.speaking .psx-sv-particles i{animation-name:psxSvParticleSpeak;animation-duration:.78s}
+.psx-sv.listening .psx-sv-particles i{animation-name:psxSvParticleListen;animation-duration:1.25s}
+.psx-sv.thinking .psx-sv-core:before{animation-duration:2.1s}
+.psx-sv.thinking .psx-sv-particles i{animation-name:psxSvParticleThink;animation-duration:1s}
+.psx-sv.idle .psx-sv-wave{opacity:.015}
+.psx-sv.error .psx-sv-ring,.psx-sv.error .psx-sv-orbit{border-color:rgba(253,164,175,.7)}
+.psx-sv.error .psx-sv-core{filter:saturate(.6) brightness(.95)}
+@keyframes psxSvSpin{to{transform:rotate(360deg)}}
+@keyframes psxSvBacklight{0%,100%{transform:translate(-50%,-50%) scale(.92);opacity:.62}45%{transform:translate(-50%,-50%) scale(1.08);opacity:1}58%{transform:translate(-50%,-50%) scale(1.02);opacity:.86}}
+@keyframes psxSvRay{0%,100%{opacity:.28}50%{opacity:.88}}
+@keyframes psxSvRingA{from{transform:translate(-50%,-50%) rotate(18deg)}to{transform:translate(-50%,-50%) rotate(378deg)}}
+@keyframes psxSvRingB{from{transform:translate(-50%,-50%) rotate(-34deg)}to{transform:translate(-50%,-50%) rotate(326deg)}}
+@keyframes psxSvRingC{from{transform:translate(-50%,-50%) rotate(61deg)}to{transform:translate(-50%,-50%) rotate(421deg)}}
+@keyframes psxSvHalo{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.035);opacity:1}}
+@keyframes psxSvParticleIdle{0%,100%{transform:translate(0,0) scale(.72);opacity:.40}50%{transform:translate(4px,-5px) scale(1.22);opacity:1}}
+@keyframes psxSvParticleListen{0%,100%{transform:translate(0,0) scale(.68)}50%{transform:translate(calc((50% - var(--x)) * .10),calc((50% - var(--y)) * .10)) scale(1.45)}}
+@keyframes psxSvParticleThink{0%{transform:translate(-4px,2px) scale(.8)}50%{transform:translate(5px,-4px) scale(1.5)}100%{transform:translate(-4px,2px) scale(.8)}}
+@keyframes psxSvParticleSpeak{0%,100%{transform:scale(.72);opacity:.55}50%{transform:scale(1.72);opacity:1}}
+@media (prefers-reduced-motion: reduce){
+  .psx-sv *,.psx-sv *:before,.psx-sv *:after{animation:none !important}
+}
+
