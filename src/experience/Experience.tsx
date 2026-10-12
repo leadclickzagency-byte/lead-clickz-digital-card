@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { LeadClickzProfile } from '@/data/profiles';
-import { profileUrl } from '@/data/profiles';
 import { CardStage, type CardFace } from '@/three/CardStage';
 import { paintCardArt, type CardArt } from '@/three/cardArt';
 import { makeCardTextures, type CardTextures } from '@/three/cardModel';
@@ -72,7 +71,7 @@ export function Experience({ profile }: { profile: LeadClickzProfile }) {
   // Paint the card art once fonts are ready
   useEffect(() => {
     let cancelled = false;
-    void paintCardArt(profile, profileUrl(profile)).then((a) => {
+    void paintCardArt(profile).then((a) => {
       if (!cancelled) setArt(a);
     });
     return () => {

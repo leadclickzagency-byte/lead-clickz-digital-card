@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import QRCode from 'qrcode';
 import type { LeadClickzProfile } from '@/data/profiles';
 import { profileUrl } from '@/data/profiles';
 import type { CardFace, CardStage } from '@/three/CardStage';
@@ -46,12 +45,15 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
   const [toast, setToast] = useState('');
   const [arMode, setArMode] = useState<ArMode | null>(null);
   const [arSheet, setArSheet] = useState(false);
-  const [arQr, setArQr] = useState('');
   const [arBusy, setArBusy] = useState(false);
   const [xrStatus, setXrStatus] = useState<'off' | 'scanning' | 'placed'>('off');
   const [hintGone, setHintGone] = useState(false);
   const xrOverlay = useRef<HTMLDivElement>(null);
   const xrHandle = useRef<WebXrHandle | null>(null);
+  // Taps on the AR action bar must not also count as "place the card here".
+  const blockXrSelect = (el: HTMLDivElement | null) => {
+    el?.addEventListener('beforexrselect', (e) => e.preventDefault());
+  };
 
   useEffect(() => {
     void loadAr().then((ar) => ar.detectArMode()).then(setArMode);
@@ -156,12 +158,8 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
       }
       return;
     }
-    const url = `${profileUrl(profile)}?ar=1`;
     setArSheet(true);
-    setArQr(await QRCode.toDataURL(url, { margin: 1, width: 360, color: { dark: '#04060b', light: '#ffffff' }, errorCorrectionLevel: 'M' }).catch(() => ''));
   };
-
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.userAgent));
 
   return (
     <>
@@ -196,6 +194,12 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
           <h1 className="sr-only">
             {profile.name}, {profile.title}, Lead Clickz™
           </h1>
+          <button type="button" className={`btn btn--ar btn--block ${highlightAr ? 'is-pulsing' : ''}`} onClick={openAr} disabled={arBusy}>
+            <IconCube size={20} />
+            <span>{arBusy ? 'Opening AR…' : 'Place the card on your desk'}</span>
+            <em>AR</em>
+          </button>
+
           <button type="button" className="btn btn--primary btn--block" onClick={saveContact}>
             <span className="btn__sheen" />
             <IconSave size={19} /> Save contact
@@ -221,12 +225,6 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
               <IconShare /> <span>Share</span>
             </button>
           </nav>
-
-          <button type="button" className={`btn btn--ar btn--block ${highlightAr ? 'is-pulsing' : ''}`} onClick={openAr} disabled={arBusy}>
-            <IconCube size={19} />
-            <span>{arBusy ? 'Opening AR…' : 'See it in your space'}</span>
-            <em>AR</em>
-          </button>
 
           <p className="dock__powered">
             Powered by <span className="psx-word">POWER <b>SPARC X</b></span>™ · SPARC™ intelligence
@@ -258,18 +256,8 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
               <IconClose />
             </button>
             <IconCube size={30} />
-            {isMobile ? (
-              <>
-                <h2>AR isn’t available in this browser</h2>
-                <p>Open this card in Safari on iPhone or iPad, or Chrome on an ARCore Android phone, to place it on your desk.</p>
-              </>
-            ) : (
-              <>
-                <h2>See the card in your space</h2>
-                <p>Scan with your phone’s camera. The card opens ready to drop onto your desk in augmented reality.</p>
-                {arQr && <img className="sheet__qr" src={arQr} alt="QR code that opens this card in AR on your phone" />}
-              </>
-            )}
+            <h2>AR needs a phone camera</h2>
+            <p>Open this card on iPhone or iPad (Safari), or an ARCore Android phone (Chrome), to place it in your space. Everything else works right here.</p>
           </div>
         </div>
       )}
@@ -285,9 +273,27 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
                 <IconClose />
               </button>
             </div>
-            <p className="xr-overlay__hint">
-              {xrStatus === 'scanning' ? 'Move your phone slowly to find a surface, then tap to place the card.' : 'Walk around it. Tap again to move it.'}
-            </p>
+            <div className="xr-overlay__bottom" ref={blockXrSelect}>
+              <p className="xr-overlay__hint">
+                {xrStatus === 'scanning' ? 'Move your phone slowly to find a surface, then tap to place the card.' : `Walk around ${profile.firstName}’s card. Tap the floor to move it.`}
+              </p>
+              {xrStatus === 'placed' && (
+                <nav className="xr-actions" aria-label="Contact actions">
+                  <a className="xr-action xr-action--primary" href={profile.vcfPath} download type="text/vcard">
+                    <IconSave size={20} /> <span>Save</span>
+                  </a>
+                  <a className="xr-action" href={tel(profile.mobilePhone)}>
+                    <IconPhone size={20} /> <span>Call</span>
+                  </a>
+                  <a className="xr-action" href={`mailto:${profile.email}`}>
+                    <IconMail size={20} /> <span>Email</span>
+                  </a>
+                  <a className="xr-action" href={profile.linkedInUrl} target="_blank" rel="noreferrer">
+                    <IconLinkedIn size={20} /> <span>LinkedIn</span>
+                  </a>
+                </nav>
+              )}
+            </div>
           </>
         )}
       </div>

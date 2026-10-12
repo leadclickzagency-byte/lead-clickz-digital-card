@@ -1,4 +1,3 @@
-import QRCode from 'qrcode';
 import type { LeadClickzProfile } from '@/data/profiles';
 
 /**
@@ -158,55 +157,6 @@ function icon(ctx: CanvasRenderingContext2D, kind: 'phone' | 'office' | 'mail' |
   ctx.restore();
 }
 
-/* ── QR code with rounded modules and a bolt badge ─────────────────── */
-
-function drawQr(ctx: CanvasRenderingContext2D, url: string, x: number, y: number, size: number, dark: string) {
-  const qr = QRCode.create(url, { errorCorrectionLevel: 'H' });
-  const n = qr.modules.size;
-  const cell = size / n;
-  const isFinder = (r: number, c: number) =>
-    (r < 7 && c < 7) || (r < 7 && c >= n - 7) || (r >= n - 7 && c < 7);
-  const badge = Math.ceil(n * 0.22);
-  const b0 = Math.floor((n - badge) / 2);
-  const inBadge = (r: number, c: number) => r >= b0 && r < b0 + badge && c >= b0 && c < b0 + badge;
-
-  ctx.fillStyle = dark;
-  for (let r = 0; r < n; r++) {
-    for (let c = 0; c < n; c++) {
-      if (!qr.modules.get(r, c) || isFinder(r, c) || inBadge(r, c)) continue;
-      ctx.beginPath();
-      ctx.arc(x + (c + 0.5) * cell, y + (r + 0.5) * cell, cell * 0.43, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-  const finder = (fr: number, fc: number) => {
-    const fx = x + fc * cell;
-    const fy = y + fr * cell;
-    ctx.fillStyle = dark;
-    roundRect(ctx, fx, fy, cell * 7, cell * 7, cell * 2);
-    ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    roundRect(ctx, fx + cell, fy + cell, cell * 5, cell * 5, cell * 1.4);
-    ctx.fill();
-    ctx.fillStyle = BRAND.blue;
-    roundRect(ctx, fx + cell * 2, fy + cell * 2, cell * 3, cell * 3, cell * 0.9);
-    ctx.fill();
-  };
-  finder(0, 0);
-  finder(0, n - 7);
-  finder(n - 7, 0);
-
-  const bx = x + (b0 + badge / 2) * cell;
-  const by = y + (b0 + badge / 2) * cell;
-  ctx.fillStyle = BRAND.blue;
-  ctx.beginPath();
-  ctx.arc(bx, by, badge * cell * 0.46, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = '#ffffff';
-  boltPath(ctx, bx, by, badge * cell * 0.68);
-  ctx.fill();
-}
-
 /* ── Faces ─────────────────────────────────────────────────────────── */
 
 function paintFront(profile: LeadClickzProfile, wordmark: HTMLImageElement) {
@@ -330,7 +280,7 @@ function paintFront(profile: LeadClickzProfile, wordmark: HTMLImageElement) {
   return { color: c, glow: g };
 }
 
-function paintBack(profile: LeadClickzProfile, url: string) {
+function paintBack(profile: LeadClickzProfile) {
   const c = canvas();
   const g = canvas();
   const ctx = c.getContext('2d')!;
@@ -341,7 +291,7 @@ function paintBack(profile: LeadClickzProfile, url: string) {
   ctx.fillStyle = BRAND.obsidian;
   ctx.fillRect(0, 0, ART_W, ART_H);
 
-  const cx = 470;
+  const cx = 560;
   const cy = 500;
 
   // Deep blue bloom behind the symbol
@@ -422,48 +372,25 @@ function paintBack(profile: LeadClickzProfile, url: string) {
   gl.fill();
   gl.restore();
 
-  // Tagline
+  // Tagline — the Lead Clickz promise, big
+  const tx = 1060;
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = 'rgba(255,255,255,0.94)';
-  ctx.font = `300 76px ${FONT_DISPLAY}`;
-  ctx.fillText('We don’t chase', 900, 352);
-  ctx.fillText('attention.', 900, 444);
-  ctx.font = `600 76px ${FONT_DISPLAY}`;
+  ctx.font = `300 98px ${FONT_DISPLAY}`;
+  ctx.fillText('We don’t chase', tx, 330);
+  ctx.fillText('attention.', tx, 446);
+  ctx.font = `600 98px ${FONT_DISPLAY}`;
   ctx.fillStyle = BRAND.blue;
-  ctx.fillText('We activate', 900, 560);
-  ctx.fillText('decisions.', 900, 652);
+  ctx.fillText('We activate', tx, 594);
+  ctx.fillText('decisions.', tx, 710);
   gl.font = ctx.font;
   gl.fillStyle = 'rgba(2,123,255,0.65)';
-  gl.fillText('We activate', 900, 560);
-  gl.fillText('decisions.', 900, 652);
+  gl.fillText('We activate', tx, 594);
+  gl.fillText('decisions.', tx, 710);
 
-  ctx.fillStyle = 'rgba(207,252,255,0.62)';
-  ctx.font = `500 28px ${FONT_BODY}`;
-  spaced(ctx, `${profile.name.toUpperCase()}  ·  ${profile.title.toUpperCase()}`, 904, 740, 5);
-
-  // QR tile
-  const qs = 330;
-  const qx = ART_W - qs - 150;
-  const qy = 170;
-  ctx.save();
-  ctx.shadowColor = 'rgba(34,211,238,0.6)';
-  ctx.shadowBlur = 50;
-  ctx.fillStyle = '#ffffff';
-  roundRect(ctx, qx - 34, qy - 34, qs + 68, qs + 68, 40);
-  ctx.fill();
-  ctx.restore();
-  drawQr(ctx, url, qx, qy, qs, BRAND.obsidian);
-  gl.save();
-  gl.strokeStyle = 'rgba(34,211,238,0.8)';
-  gl.lineWidth = 4;
-  roundRect(gl, qx - 36, qy - 36, qs + 72, qs + 72, 42);
-  gl.stroke();
-  gl.restore();
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
-  ctx.font = `600 24px ${FONT_BODY}`;
-  const scanLabel = 'SCAN TO CONNECT';
-  const sw = spacedWidth(ctx, scanLabel, 6);
-  spaced(ctx, scanLabel, qx + qs / 2 - sw / 2, qy + qs + 92, 6);
+  ctx.fillStyle = 'rgba(207,252,255,0.66)';
+  ctx.font = `500 30px ${FONT_BODY}`;
+  spaced(ctx, `${profile.name.toUpperCase()}  ·  ${profile.title.toUpperCase()}`, tx + 4, 820, 6);
 
   // Powered-by line: PSX + SPARC
   const lineY = ART_H - 150;
@@ -502,11 +429,11 @@ function paintBack(profile: LeadClickzProfile, url: string) {
 
 let wordmarkPromise: Promise<HTMLImageElement> | null = null;
 
-export async function paintCardArt(profile: LeadClickzProfile, url: string): Promise<CardArt> {
+export async function paintCardArt(profile: LeadClickzProfile): Promise<CardArt> {
   wordmarkPromise ??= loadImage('/brand/leadclickz-wordmark-light.png');
   const [wordmark] = await Promise.all([wordmarkPromise, ensureFonts()]);
   const front = paintFront(profile, wordmark);
-  const back = paintBack(profile, url);
+  const back = paintBack(profile);
   const lift = canvas();
   const lctx = lift.getContext('2d')!;
   lctx.fillStyle = '#000';
