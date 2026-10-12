@@ -129,9 +129,10 @@ export function buildCard(textures: CardTextures, options: { forExport?: boolean
         emissiveIntensity: 1,
         roughness: 0.36,
         metalness: 0.0,
-        clearcoat: 1,
-        clearcoatRoughness: 0.06,
-        iridescence: 0.3,
+        envMapIntensity: 0.35,
+        clearcoat: 0.45,
+        clearcoatRoughness: 0.18,
+        iridescence: 0.12,
         iridescenceIOR: 1.6,
         iridescenceThicknessRange: [180, 520],
       });

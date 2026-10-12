@@ -302,7 +302,6 @@ export class CardStage {
   private backGlow: THREE.Sprite;
   private flash: THREE.Sprite;
   private shock: THREE.Mesh;
-  private glint = new THREE.PointLight(0xcffcff, 0, 6, 1.6);
 
   private pivot = new THREE.Group(); // gestures + idle
   private tiltRig = new THREE.Group(); // gyro / pointer parallax
@@ -366,7 +365,7 @@ export class CardStage {
     pmrem.dispose();
     this.scene.environmentIntensity = 0.7;
     this.scene.background = new THREE.Color(0x020409);
-    this.scene.fog = new THREE.Fog(0x020409, 14, 34);
+    this.scene.fog = new THREE.Fog(0x020409, 24, 44);
 
     this.camera.position.set(0, 0, 12);
 
@@ -379,7 +378,7 @@ export class CardStage {
     rimL.position.set(-4.5, 1.2, -1.5);
     const rimR = new THREE.PointLight(0x22d3ee, 14, 12, 2);
     rimR.position.set(4.5, -1.4, -1.2);
-    this.scene.add(rimL, rimR, this.glint);
+    this.scene.add(rimL, rimR);
 
     // Backdrop glow
     this.backGlow = new THREE.Sprite(
@@ -802,22 +801,17 @@ export class CardStage {
     const scale = inCard ? 0.82 + 0.18 * easeOutCubic(this.cardPresence) : 0.82;
     this.pivot.scale.setScalar(scale + igniteBoost * 0.05);
 
-    // Glint light sweeps across the face every few seconds
-    const sweep = ((t * 0.18) % 1) * 2 - 0.5;
-    this.glint.position.set(-4 + sweep * 8, 2.2 - sweep * 2.2, 2.4);
-    this.glint.intensity = inCard ? 6 * Math.sin(clamp(sweep, 0, 1) * Math.PI) : 0;
-
-    // Rim energy reacts to SPARC's voice and the ignite burst
+    // The card holds a steady edge glow; only the save-contact burst brightens it.
+    // (SPARC is the one who speaks, so the card never reacts to his voice.)
     if (this.card) {
-      const pulse = 0.5 + 0.5 * Math.sin(t * 2.4);
-      this.card.edgeMaterial.emissiveIntensity = 1.6 + pulse * 0.6 + this.voiceLevel * 3 + igniteBoost * 6;
-      const e = 0.8 + pulse * 0.5 + this.voiceLevel * 2.2 + igniteBoost * 4;
+      this.card.edgeMaterial.emissiveIntensity = 1.8 + igniteBoost * 6;
+      const e = 0.95 + igniteBoost * 4;
       this.cardGlowEdge?.color.setRGB(0.04 * e, 0.45 * e, 2 * e);
     }
 
     // Orbits
     this.orbits.group.rotation.z = Math.sin(t * 0.1) * 0.1;
-    const orbitSpeed = 1 + this.voiceLevel * 2.5 + igniteBoost * 6;
+    const orbitSpeed = 1 + igniteBoost * 6;
     for (const ring of this.orbits.rings) {
       ring.offset += ring.speed * dt * orbitSpeed;
       ring.sparks.forEach((s, i) => {
@@ -831,10 +825,10 @@ export class CardStage {
 
     // Backdrop + flash + shockwave
     const glowMat = this.backGlow.material as THREE.SpriteMaterial;
-    glowMat.opacity = damp(glowMat.opacity, inCard ? 0.55 + this.voiceLevel * 0.45 + igniteBoost * 0.5 : 0.18, 3, dt);
+    glowMat.opacity = damp(glowMat.opacity, inCard ? 0.5 + igniteBoost * 0.5 : 0.18, 3, dt);
     this.flashLevel = Math.max(0, this.flashLevel - dt * 3.2);
     (this.flash.material as THREE.SpriteMaterial).opacity = this.flashLevel * 0.55;
-    this.bloom.strength = 1.1 + this.flashLevel * 1.2 + this.voiceLevel * 0.6;
+    this.bloom.strength = 1.1 + this.flashLevel * 1.2;
 
     if (this.shockT >= 0) {
       this.shockT += dt;

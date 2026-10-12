@@ -189,7 +189,7 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
             <IconFlip size={15} /> Tap the card to flip · drag to spin
           </span>
         </div>
-        <SparcPresence lines={profile.sparc} active={revealed} interjection={interjection} onLevel={(l) => stage?.setVoiceLevel(l)} />
+        <SparcPresence lines={profile.sparc} active={revealed} interjection={interjection} />
 
         <div className="dock__panel">
           <h1 className="sr-only">
@@ -228,7 +228,12 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
           </nav>
 
           <p className="dock__powered">
-            Powered by <span className="psx-word">POWER <b>SPARC X</b></span>™ · SPARC™ intelligence
+            <span>
+              Powered by <strong>Lead Clickz™</strong>
+            </span>
+            <span>
+              Informed by <span className="psx-word"><b>SPARC</b></span>™ Intelligence
+            </span>
           </p>
         </div>
       </div>

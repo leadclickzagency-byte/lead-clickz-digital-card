@@ -199,10 +199,10 @@ function paintFront(profile: LeadClickzProfile, wordmark: HTMLImageElement) {
   ctx.strokeStyle = 'rgba(2,123,255,0.07)';
   ctx.lineWidth = 46;
   ctx.lineCap = 'round';
-  ringPath(ctx, ART_W * 0.86, ART_H * 0.62, 330);
+  ringPath(ctx, ART_W * 0.86, ART_H * 0.3, 250);
   ctx.stroke();
   ctx.fillStyle = 'rgba(2,123,255,0.08)';
-  boltPath(ctx, ART_W * 0.86, ART_H * 0.62, 900);
+  boltPath(ctx, ART_W * 0.86, ART_H * 0.3, 680);
   ctx.fill();
   ctx.restore();
 
@@ -220,33 +220,34 @@ function paintFront(profile: LeadClickzProfile, wordmark: HTMLImageElement) {
   gl.fill();
   gl.restore();
 
-  ctx.fillStyle = BRAND.gray;
-  ctx.font = `500 30px ${FONT_BODY}`;
+  ctx.fillStyle = BRAND.charcoal;
+  ctx.font = `600 30px ${FONT_BODY}`;
   spaced(ctx, 'WE ACTIVATE DECISIONS', 146, 132 + wmH + 62, 7);
 
   // Name + title
-  ctx.fillStyle = BRAND.ink;
-  ctx.font = `600 122px ${FONT_DISPLAY}`;
-  ctx.fillText(profile.name, 136, 690);
+  const INK = '#15171c';
+  ctx.fillStyle = INK;
+  ctx.font = `600 120px ${FONT_DISPLAY}`;
+  ctx.fillText(profile.name, 136, 572);
 
-  ctx.fillStyle = BRAND.blue;
-  ctx.font = `600 38px ${FONT_BODY}`;
-  const titleEnd = spaced(ctx, profile.title.toUpperCase(), 142, 768, 9);
-  ctx.fillStyle = BRAND.gray;
-  ctx.font = `500 38px ${FONT_BODY}`;
-  spaced(ctx, '  ·  LEAD CLICKZ™', titleEnd, 768, 6);
+  ctx.fillStyle = BRAND.blueDeep;
+  ctx.font = `700 40px ${FONT_BODY}`;
+  const titleEnd = spaced(ctx, profile.title.toUpperCase(), 142, 640, 8);
+  ctx.fillStyle = BRAND.charcoal;
+  ctx.font = `600 40px ${FONT_BODY}`;
+  spaced(ctx, '  ·  LEAD CLICKZ™', titleEnd, 640, 6);
 
   // Energy divider
-  const div = ctx.createLinearGradient(142, 0, 1160, 0);
+  const div = ctx.createLinearGradient(142, 0, 1300, 0);
   div.addColorStop(0, BRAND.blue);
   div.addColorStop(0.6, BRAND.cyan);
   div.addColorStop(1, 'rgba(34,211,238,0)');
   ctx.fillStyle = div;
-  ctx.fillRect(142, 818, 1018, 5);
+  ctx.fillRect(142, 690, 1158, 6);
   gl.fillStyle = div;
-  gl.fillRect(142, 818, 1018, 5);
+  gl.fillRect(142, 690, 1158, 6);
 
-  // Contact rows (two columns)
+  // Contact rows (two columns), sized to read clearly on a phone
   const rows: Array<[Parameters<typeof icon>[1], string, string]> = [
     ['phone', 'MOBILE', profile.mobilePhone],
     ['office', 'OFFICE', profile.officePhone],
@@ -256,16 +257,16 @@ function paintFront(profile: LeadClickzProfile, wordmark: HTMLImageElement) {
   rows.forEach(([kind, label, value], i) => {
     const col = i % 2;
     const row = Math.floor(i / 2);
-    const x = 142 + col * 860;
-    const y = 908 + row * 104;
+    const x = 142 + col * 960;
+    const y = 830 + row * 170;
     ctx.strokeStyle = BRAND.blue;
-    icon(ctx, kind, x + 26, y - 14, 50);
-    ctx.fillStyle = BRAND.gray;
-    ctx.font = `600 22px ${FONT_BODY}`;
-    spaced(ctx, label, x + 80, y - 26, 4);
-    ctx.fillStyle = BRAND.charcoal;
-    ctx.font = `500 40px ${FONT_BODY}`;
-    ctx.fillText(value, x + 80, y + 18);
+    icon(ctx, kind, x + 34, y - 8, 66);
+    ctx.fillStyle = BRAND.blueDeep;
+    ctx.font = `700 26px ${FONT_BODY}`;
+    spaced(ctx, label, x + 100, y - 36, 5);
+    ctx.fillStyle = INK;
+    ctx.font = `600 58px ${FONT_BODY}`;
+    ctx.fillText(value, x + 98, y + 28);
   });
 
   // Bottom energy edge
@@ -393,7 +394,7 @@ function paintBack(profile: LeadClickzProfile) {
   ctx.font = `500 30px ${FONT_BODY}`;
   spaced(ctx, `${profile.name.toUpperCase()}  ·  ${profile.title.toUpperCase()}`, tx + 4, 820, 6);
 
-  // Powered-by line: PSX + SPARC
+  // Footer line
   const lineY = ART_H - 150;
   const rule = ctx.createLinearGradient(140, 0, ART_W - 140, 0);
   rule.addColorStop(0, 'rgba(34,211,238,0)');
@@ -405,25 +406,33 @@ function paintBack(profile: LeadClickzProfile) {
   gl.fillStyle = rule;
   gl.fillRect(140, lineY, ART_W - 280, 2);
 
-  ctx.font = `500 24px ${FONT_BODY}`;
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  let x = spaced(ctx, 'POWERED BY', 140, lineY + 78, 6) + 30;
-  ctx.font = `400 46px ${FONT_PSX}`;
-  ctx.fillStyle = '#ffffff';
-  x = spaced(ctx, 'POWER', x, lineY + 82, 10) + 22;
-  ctx.fillStyle = BRAND.blue;
-  x = spaced(ctx, 'SPARC X', x, lineY + 82, 10);
-  gl.font = ctx.font;
-  gl.fillStyle = 'rgba(2,123,255,0.8)';
-  spaced(gl, 'SPARC X', x - spacedWidth(ctx, 'SPARC X', 10), lineY + 82, 10);
-  ctx.font = `500 22px ${FONT_BODY}`;
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.fillText('™', x + 6, lineY + 56);
-
-  ctx.font = `500 24px ${FONT_BODY}`;
-  ctx.fillStyle = 'rgba(207,252,255,0.6)';
-  const right = 'THE MARKETING INTELLIGENCE ECOSYSTEM';
-  spaced(ctx, right, ART_W - 140 - spacedWidth(ctx, right, 6), lineY + 78, 6);
+  // Powered by Lead Clickz™ · Informed by SPARC™ Intelligence — centred
+  const base = lineY + 82;
+  const parts: Array<{ text: string; font: string; color: string; glow?: string; track: number }> = [
+    { text: 'POWERED BY ', font: `600 30px ${FONT_BODY}`, color: 'rgba(255,255,255,0.72)', track: 6 },
+    { text: 'LEAD CLICKZ™', font: `700 34px ${FONT_BODY}`, color: '#ffffff', track: 6 },
+    { text: '     ·     ', font: `600 30px ${FONT_BODY}`, color: 'rgba(127,239,255,0.6)', track: 0 },
+    { text: 'INFORMED BY ', font: `600 30px ${FONT_BODY}`, color: 'rgba(255,255,255,0.72)', track: 6 },
+    { text: 'SPARC', font: `400 40px ${FONT_PSX}`, color: BRAND.cyan, glow: 'rgba(34,211,238,0.85)', track: 10 },
+    { text: '™ INTELLIGENCE', font: `700 30px ${FONT_BODY}`, color: '#ffffff', track: 6 },
+  ];
+  let total = 0;
+  for (const p of parts) {
+    ctx.font = p.font;
+    total += spacedWidth(ctx, p.text, p.track) + p.track;
+  }
+  let x = ART_W / 2 - total / 2;
+  for (const p of parts) {
+    ctx.font = p.font;
+    ctx.fillStyle = p.color;
+    const end = spaced(ctx, p.text, x, base, p.track);
+    if (p.glow) {
+      gl.font = p.font;
+      gl.fillStyle = p.glow;
+      spaced(gl, p.text, x, base, p.track);
+    }
+    x = end + p.track;
+  }
 
   return { color: c, glow: g };
 }
@@ -439,9 +448,22 @@ export async function paintCardArt(profile: LeadClickzProfile): Promise<CardArt>
   const lctx = lift.getContext('2d')!;
   lctx.fillStyle = '#000';
   lctx.fillRect(0, 0, ART_W, ART_H);
-  lctx.globalAlpha = 0.34;
-  lctx.drawImage(front.color, 0, 0);
-  lctx.globalAlpha = 1;
+  // Lift only the pearl background; text and icons stay at full contrast.
+  {
+    const src = front.color.getContext('2d')!.getImageData(0, 0, ART_W, ART_H);
+    const out = lctx.createImageData(ART_W, ART_H);
+    const d = src.data;
+    const o = out.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const lum = (0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255;
+      const k = lum > 0.86 ? ((lum - 0.86) / 0.14) * 0.42 : 0;
+      o[i] = d[i] * k;
+      o[i + 1] = d[i + 1] * k;
+      o[i + 2] = d[i + 2] * k;
+      o[i + 3] = 255;
+    }
+    lctx.putImageData(out, 0, 0);
+  }
   lctx.globalCompositeOperation = 'lighter';
   lctx.drawImage(front.glow, 0, 0);
   return { front: front.color, frontGlow: front.glow, frontLift: lift, back: back.color, backGlow: back.glow };

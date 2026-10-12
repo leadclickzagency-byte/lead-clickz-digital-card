@@ -18,44 +18,116 @@
   },
   "profiles": {
     "thomas": {
-      "script": "Signal locked. Thomas Lopez, founder of Lead Clickz. Save his card, and let's turn your signals into decisions.",
+      "script": "Right now, your customers are telling you exactly what they want. Every search. Every click. Every review. Most businesses never hear it. Lead Clickz hears all of it. I read the signals in your market, and the Lead Clickz team turns them into campaigns that bring you real customers. While your competitors guess, you decide. You just met Thomas Lopez, founder of Lead Clickz. Save his card. Let's go win your market.",
       "captions": [
         {
           "at": 0,
-          "text": "Signal locked."
+          "text": "Right now, your customers are telling you"
         },
         {
-          "at": 1.1,
-          "text": "Thomas Lopez, founder of Lead Clickz™."
+          "at": 2.2,
+          "text": "exactly what they want."
         },
         {
-          "at": 3.4,
-          "text": "Save his card — and let’s turn"
+          "at": 3.6,
+          "text": "Every search. Every click. Every review."
         },
         {
-          "at": 5.1,
-          "text": "your signals into decisions."
+          "at": 6.2,
+          "text": "Most businesses never hear it."
+        },
+        {
+          "at": 8.0,
+          "text": "Lead Clickz™ hears all of it."
+        },
+        {
+          "at": 9.8,
+          "text": "I read the signals in your market,"
+        },
+        {
+          "at": 11.8,
+          "text": "and the Lead Clickz™ team turns them"
+        },
+        {
+          "at": 13.6,
+          "text": "into campaigns that bring you real customers."
+        },
+        {
+          "at": 16.4,
+          "text": "While your competitors guess,"
+        },
+        {
+          "at": 18.0,
+          "text": "you decide."
+        },
+        {
+          "at": 19.4,
+          "text": "You just met Thomas Lopez, founder of Lead Clickz™."
+        },
+        {
+          "at": 22.4,
+          "text": "Save his card."
+        },
+        {
+          "at": 23.6,
+          "text": "Let’s go win your market."
         }
       ]
     },
     "tiffany": {
-      "script": "Signal locked. Tiffany Lopez, CEO of Lead Clickz. Save her card, and let's turn your signals into decisions.",
+      "script": "Right now, your customers are telling you exactly what they want. Every search. Every click. Every review. Most businesses never hear it. Lead Clickz hears all of it. I read the signals in your market, and the Lead Clickz team turns them into campaigns that bring you real customers. While your competitors guess, you decide. You just met Tiffany Lopez, CEO of Lead Clickz. Save her card. Let's go win your market.",
       "captions": [
         {
           "at": 0,
-          "text": "Signal locked."
+          "text": "Right now, your customers are telling you"
         },
         {
-          "at": 1.1,
-          "text": "Tiffany Lopez, CEO of Lead Clickz™."
+          "at": 2.2,
+          "text": "exactly what they want."
         },
         {
-          "at": 3.2,
-          "text": "Save her card — and let’s turn"
+          "at": 3.6,
+          "text": "Every search. Every click. Every review."
         },
         {
-          "at": 4.9,
-          "text": "your signals into decisions."
+          "at": 6.2,
+          "text": "Most businesses never hear it."
+        },
+        {
+          "at": 8.0,
+          "text": "Lead Clickz™ hears all of it."
+        },
+        {
+          "at": 9.8,
+          "text": "I read the signals in your market,"
+        },
+        {
+          "at": 11.8,
+          "text": "and the Lead Clickz™ team turns them"
+        },
+        {
+          "at": 13.6,
+          "text": "into campaigns that bring you real customers."
+        },
+        {
+          "at": 16.4,
+          "text": "While your competitors guess,"
+        },
+        {
+          "at": 18.0,
+          "text": "you decide."
+        },
+        {
+          "at": 19.4,
+          "text": "You just met Tiffany Lopez, CEO of Lead Clickz™."
+        },
+        {
+          "at": 22.4,
+          "text": "Save her card."
+        },
+        {
+          "at": 23.6,
+          "text": "Let’s go win your market."
         }
       ]
     }

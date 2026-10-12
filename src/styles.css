@@ -632,13 +632,21 @@ a {
 }
 .dock__powered {
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 14px;
+  row-gap: 2px;
   text-align: center;
-  font-size: 10.5px;
+  font-size: 12px;
   letter-spacing: 0.06em;
-  color: rgba(220, 234, 255, 0.45);
+  color: rgba(220, 234, 255, 0.72);
+}
+.dock__powered strong {
+  color: #fff;
+  font-weight: 600;
 }
 .dock__powered .psx-word {
-  color: rgba(255, 255, 255, 0.78);
   font-size: 11px;
 }
 
