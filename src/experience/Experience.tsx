@@ -9,29 +9,12 @@ import { CardScreen } from './CardScreen';
 
 type Phase = 'gate' | 'cinematic' | 'bridge' | 'card';
 
-const SEEN_KEY = 'lc-intro-seen-v2';
-
-function storageGet(key: string) {
-  try {
-    return window.localStorage.getItem(key);
-  } catch {
-    return null;
-  }
-}
-function storageSet(key: string, value: string) {
-  try {
-    window.localStorage.setItem(key, value);
-  } catch {
-    /* private mode */
-  }
-}
-
 type OrientationCtor = typeof DeviceOrientationEvent & { requestPermission?: () => Promise<'granted' | 'denied'> };
 
 export function Experience({ profile }: { profile: LeadClickzProfile }) {
   const params = new URLSearchParams(window.location.search);
   const arDeepLink = params.get('ar') === '1';
-  const skipIntro = arDeepLink || params.get('intro') === '0' || storageGet(SEEN_KEY) === '1';
+  const skipIntro = arDeepLink || params.get('intro') === '0';
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dockRef = useRef<HTMLDivElement>(null);
@@ -101,7 +84,6 @@ export function Experience({ profile }: { profile: LeadClickzProfile }) {
     }
     if (!stage || !textures || revealStarted.current) return;
     revealStarted.current = true;
-    storageSet(SEEN_KEY, '1');
     // Let the bridge's last line clear before the strike
     const t = window.setTimeout(() => stage.reveal(), skipIntro ? 250 : 120);
     return () => window.clearTimeout(t);

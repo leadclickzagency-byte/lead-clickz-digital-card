@@ -3,7 +3,7 @@
 Scan the QR on a printed card and the visitor gets a live, 3D Lead Clickz™ card:
 
 1. **Ignite gate** — "This isn't a business card. It's a signal." One tap unlocks sound and the phone's motion sensors.
-2. **Cinematic + signal story** — the Lead Clickz opening film, then *Yesterday… We aimed. Today… We strike with power. Every market has signals. Can you see them?* over a 3D field of signals (skippable; returning visitors go straight to the card).
+2. **Cinematic + signal story** — the Lead Clickz opening film, then *Yesterday… We aimed. Today… We strike with power. Every market has signals. Can you see them?* over a 3D field of signals (skippable; every normal visit and reload starts at the ignite gate).
 3. **The card** — lightning strike, the card assembles from particles and spins in. Pearl Lead Clickz front, obsidian back with the brand line and *Powered by POWER SPARC X™*. Drag to spin, tap to flip, tilt the phone to see the light move.
 4. **SPARC™ speaks** — the SPARC orb from Power SPARC X delivers a ~30-second pitch in his real voice, stitched from his existing recordings, with live captions. The card itself stays steady; only SPARC reacts.
 5. **Save contact** → *Connection ignited* → Add to contacts. Call, text, email, website, LinkedIn and share are one tap.
