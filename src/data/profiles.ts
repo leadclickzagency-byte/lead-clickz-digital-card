@@ -81,7 +81,8 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     email: 'T.Lopez@leadclickz.com',
     linkedInUrl: 'https://www.linkedin.com/in/tiffany-lopez',
     website: 'https://leadclickz.com',
-    sites: leadClickzSites,
+    // Tiffany's card is the Studio card, so Studio leads.
+    sites: [...leadClickzSites].reverse(),
     vcfPath: asset('/contacts/tiffany-lopez.vcf'),
     sparc: sparcFor('tiffany'),
   },

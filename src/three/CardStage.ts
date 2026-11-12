@@ -384,7 +384,7 @@ export class CardStage {
     this.backGlow = new THREE.Sprite(
       new THREE.SpriteMaterial({ map: glowTexture('rgba(34,211,238,0.55)', 'rgba(2,123,255,0.22)', 256), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0 }),
     );
-    this.backGlow.scale.set(11, 7, 1);
+    this.backGlow.scale.set(7.5, 10.5, 1);
     this.backGlow.position.z = -2.4;
     this.scene.add(this.backGlow);
 
@@ -577,7 +577,8 @@ export class CardStage {
     const availFrac = avail / h;
     const widthFill = aspect < 0.8 ? 0.9 : 0.62;
     const dW = CARD_W / widthFill / (2 * tan * aspect);
-    const dH = CARD_H / 0.7 / (2 * tan * availFrac);
+    // Portrait card: let it take most of the space above the dock.
+    const dH = CARD_H / 0.94 / (2 * tan * availFrac);
     this.camera.position.z = Math.max(dW, dH);
     this.camera.setViewOffset(w, h, 0, (this.insets.bottom - this.insets.top) / 2, w, h);
     this.camera.updateProjectionMatrix();

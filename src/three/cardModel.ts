@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import type { CardArt } from './cardArt';
 
-export const CARD_W = 3.5;
-export const CARD_H = 2.0;
-export const CARD_R = 0.15;
+/** Portrait, the printed card's 2.25 × 3.75 ratio. */
+export const CARD_W = 2.1;
+export const CARD_H = 3.5;
+export const CARD_R = 0.12;
 export const CARD_DEPTH = 0.028;
 const BEVEL = 0.01;
 
@@ -13,6 +14,7 @@ export type CardTextures = {
   frontLift: THREE.Texture;
   back: THREE.Texture;
   backGlow: THREE.Texture;
+  backLift: THREE.Texture;
 };
 
 export type CardMesh = {
@@ -40,6 +42,7 @@ export function makeCardTextures(art: CardArt, maxAnisotropy = 8): CardTextures 
     frontLift: make(art.frontLift),
     back: make(art.back),
     backGlow: make(art.backGlow),
+    backLift: make(art.backLift),
   };
 }
 
@@ -75,8 +78,8 @@ function faceGeometry(shape: THREE.Shape, mirror: boolean) {
 }
 
 /**
- * Builds the physical card: a bevelled body whose rim glows Lead Clickz blue, a pearl front face
- * and an obsidian back face. `forExport` uses plain standard materials, which USDZ / GLB
+ * Builds the physical card: a bevelled body whose rim glows Lead Clickz blue, with the pearl front
+ * and back faces. `forExport` uses plain standard materials, which USDZ / GLB
  * exporters translate faithfully, and keeps the card opaque.
  */
 export function buildCard(textures: CardTextures, options: { forExport?: boolean } = {}): CardMesh {
@@ -113,49 +116,34 @@ export function buildCard(textures: CardTextures, options: { forExport?: boolean
 
   const faceZ = CARD_DEPTH / 2 + BEVEL + 0.0015;
 
-  const frontMaterial = forExport
-    ? new THREE.MeshStandardMaterial({
-        map: textures.front,
-        emissiveMap: textures.frontGlow,
-        emissive: new THREE.Color(0xffffff),
-        emissiveIntensity: 0.6,
-        roughness: 0.4,
-        metalness: 0.05,
-      })
-    : new THREE.MeshPhysicalMaterial({
-        map: textures.front,
-        emissiveMap: textures.frontLift,
-        emissive: new THREE.Color(0xffffff),
-        emissiveIntensity: 1,
-        roughness: 0.36,
-        metalness: 0.0,
-        envMapIntensity: 0.35,
-        clearcoat: 0.45,
-        clearcoatRoughness: 0.18,
-        iridescence: 0.12,
-        iridescenceIOR: 1.6,
-        iridescenceThicknessRange: [180, 520],
-      });
+  // Both faces are printed on the same pearl stock.
+  const pearlFace = (map: THREE.Texture, glow: THREE.Texture, lift: THREE.Texture) =>
+    forExport
+      ? new THREE.MeshStandardMaterial({
+          map,
+          emissiveMap: glow,
+          emissive: new THREE.Color(0xffffff),
+          emissiveIntensity: 0.6,
+          roughness: 0.4,
+          metalness: 0.05,
+        })
+      : new THREE.MeshPhysicalMaterial({
+          map,
+          emissiveMap: lift,
+          emissive: new THREE.Color(0xffffff),
+          emissiveIntensity: 1,
+          roughness: 0.36,
+          metalness: 0.0,
+          envMapIntensity: 0.35,
+          clearcoat: 0.45,
+          clearcoatRoughness: 0.18,
+          iridescence: 0.12,
+          iridescenceIOR: 1.6,
+          iridescenceThicknessRange: [180, 520],
+        });
 
-  const backMaterial = forExport
-    ? new THREE.MeshStandardMaterial({
-        map: textures.back,
-        emissiveMap: textures.backGlow,
-        emissive: new THREE.Color(0xffffff),
-        emissiveIntensity: 1,
-        roughness: 0.45,
-        metalness: 0.2,
-      })
-    : new THREE.MeshPhysicalMaterial({
-        map: textures.back,
-        emissiveMap: textures.backGlow,
-        emissive: new THREE.Color(0xffffff),
-        emissiveIntensity: 1.9,
-        roughness: 0.42,
-        metalness: 0.35,
-        clearcoat: 0.9,
-        clearcoatRoughness: 0.12,
-      });
+  const frontMaterial = pearlFace(textures.front, textures.frontGlow, textures.frontLift);
+  const backMaterial = pearlFace(textures.back, textures.backGlow, textures.backLift);
 
   const front = new THREE.Mesh(faceGeometry(shape, false), frontMaterial);
   front.position.z = faceZ;

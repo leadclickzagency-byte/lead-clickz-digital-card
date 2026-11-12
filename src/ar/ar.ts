@@ -6,9 +6,9 @@ import { boltPath, ringPath } from '@/three/cardArt';
 
 export type ArMode = 'quicklook' | 'webxr' | 'none';
 
-/** Real-world width of the card in AR, in metres (a desk-sized standee). */
-const AR_CARD_WIDTH = 0.42;
-const AR_SCALE = AR_CARD_WIDTH / 3.5;
+/** Real-world height of the card in AR, in metres (a desk-sized standee). */
+const AR_CARD_HEIGHT = 0.36;
+const AR_SCALE = AR_CARD_HEIGHT / CARD_H;
 
 export async function detectArMode(): Promise<ArMode> {
   const a = document.createElement('a');
