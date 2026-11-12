@@ -11,6 +11,14 @@ export type SparcLine = {
   captions: SparcCaption[];
 };
 
+export type LeadClickzSite = { label: string; host: string; url: string };
+
+/** Pro and Studio, linked from every card. */
+export const leadClickzSites: LeadClickzSite[] = [
+  { label: 'Pro', host: 'pro.leadclickz.com', url: 'https://pro.leadclickz.com' },
+  { label: 'Studio', host: 'studio.leadclickz.com', url: 'https://studio.leadclickz.com' },
+];
+
 export type LeadClickzProfile = {
   slug: ProfileSlug;
   name: string;
@@ -24,6 +32,8 @@ export type LeadClickzProfile = {
   email: string;
   linkedInUrl: string;
   website: string;
+  /** Lead Clickz product sites shown as their own links on the card. */
+  sites: LeadClickzSite[];
   vcfPath: string;
   /** What SPARC says once the card has landed. */
   sparc: SparcLine[];
@@ -55,6 +65,7 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     email: 'Thomas@leadclickz.com',
     linkedInUrl: 'https://www.linkedin.com/in/thlopez/',
     website: 'https://leadclickz.com',
+    sites: leadClickzSites,
     vcfPath: asset('/contacts/thomas-lopez.vcf'),
     sparc: sparcFor('thomas'),
   },
@@ -70,6 +81,7 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     email: 'T.Lopez@leadclickz.com',
     linkedInUrl: 'https://www.linkedin.com/in/tiffany-lopez',
     website: 'https://leadclickz.com',
+    sites: leadClickzSites,
     vcfPath: asset('/contacts/tiffany-lopez.vcf'),
     sparc: sparcFor('tiffany'),
   },

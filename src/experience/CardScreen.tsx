@@ -207,6 +207,18 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
             <IconSave size={19} /> Save contact
           </button>
 
+          <nav className="sites" aria-label="Lead Clickz sites">
+            {profile.sites.map((site) => (
+              <a key={site.url} className="site" href={site.url} target="_blank" rel="noreferrer">
+                <BoltMark size={20} />
+                <span className="site__text">
+                  <b>{site.label}</b>
+                  <small>{site.host}</small>
+                </span>
+              </a>
+            ))}
+          </nav>
+
           <nav className="actions" aria-label="Contact actions">
             <a className="action" href={tel(profile.mobilePhone)}>
               <IconPhone /> <span>Call</span>
