@@ -11,13 +11,14 @@ export type SparcLine = {
   captions: SparcCaption[];
 };
 
-export type LeadClickzSite = { label: string; host: string; url: string };
+export type LeadClickzSite = { label: string; blurb: string; url: string; logo: string };
 
-/** Pro and Studio, linked from every card. */
-export const leadClickzSites: LeadClickzSite[] = [
-  { label: 'Pro', host: 'pro.leadclickz.com', url: 'https://pro.leadclickz.com' },
-  { label: 'Studio', host: 'studio.leadclickz.com', url: 'https://studio.leadclickz.com' },
-];
+const PRO: LeadClickzSite = { label: 'Pro', blurb: 'Home services', url: 'https://leadclickz.com/pro', logo: asset('/brand/products/pro.webp') };
+const OCTANE: LeadClickzSite = { label: 'Octane', blurb: 'Auto shops', url: 'https://leadclickz.com/octane', logo: asset('/brand/products/octane.webp') };
+const STUDIO: LeadClickzSite = { label: 'Studio', blurb: 'Artists & studios', url: 'https://leadclickz.com/studio', logo: asset('/brand/products/studio.webp') };
+
+/** Lead Clickz products, linked from every card. */
+export const leadClickzSites: LeadClickzSite[] = [PRO, OCTANE, STUDIO];
 
 export type LeadClickzProfile = {
   slug: ProfileSlug;
@@ -82,7 +83,7 @@ export const leadClickzProfiles: Record<ProfileSlug, LeadClickzProfile> = {
     linkedInUrl: 'https://www.linkedin.com/in/tiffany-lopez',
     website: 'https://leadclickz.com',
     // Tiffany's card is the Studio card, so Studio leads.
-    sites: [...leadClickzSites].reverse(),
+    sites: [STUDIO, PRO, OCTANE],
     vcfPath: asset('/contacts/tiffany-lopez.vcf'),
     sparc: sparcFor('tiffany'),
   },

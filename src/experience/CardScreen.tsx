@@ -209,12 +209,9 @@ export function CardScreen({ profile, stage, textures, revealed, face, highlight
 
           <nav className="sites" aria-label="Lead Clickz sites">
             {profile.sites.map((site) => (
-              <a key={site.url} className="site" href={site.url} target="_blank" rel="noreferrer">
-                <BoltMark size={20} />
-                <span className="site__text">
-                  <b>{site.label}</b>
-                  <small>{site.host}</small>
-                </span>
+              <a key={site.url} className="site" href={site.url} target="_blank" rel="noreferrer" aria-label={`Lead Clickz ${site.label}: ${site.blurb}`}>
+                <img className="site__logo" src={site.logo} alt="" />
+                <small className="site__blurb">{site.blurb}</small>
               </a>
             ))}
           </nav>
